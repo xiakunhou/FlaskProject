@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Products List</h1>
+{% for product in products %}
+<p>{{product.name}} details: <b>{{product.shortDesc}}</b></p>
+{% endfor %}
+
+{% endblock %}
+
