@@ -8,4 +8,4 @@ app=Flask(__name__)
 app.config.from_object('config')
 db=SQLAlchemy(app)
 
-from appA import views, models
+from iInvest import views, models

@@ -1,5 +1,5 @@
 #coding:utf-8
-from appA import app
+from iInvest import app
 from flask import render_template,flash,redirect
 from forms import LoginForm
 from models import Product
