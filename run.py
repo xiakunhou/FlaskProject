@@ -1,6 +1,7 @@
 from iInvest import app
 import os
 
+app=app
 port = int(os.environ.get('PORT', 33507))
 app.debug=True
 #if __name__=='__main__':
