@@ -3,7 +3,7 @@
 {% block content %}
 <h1>Products List</h1>
 {% for product in products %}
-<p>{{product.name}} details: <b>{{product.detailDesc}}</b></p>
+<p><a href="/product/{{product.id}}">{{product.name}} </a>details: <b>{{product.shortDesc}}</b></p>
 {% endfor %}
 
 {% endblock %}

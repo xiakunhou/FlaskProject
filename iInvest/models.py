@@ -17,6 +17,22 @@ class Product(db.Model):
 	detailDesc=db.Column(db.String(256))
 	riskControl=db.Column(db.String(256))
 	
+	def __init__(self, name, threshold, dueTime, shortDesc, profitRate, profitType, profitDesc, status,organization,investType,investArea,total,detailDesc,riskControl):
+		self.name=name
+		self.threshold=threshold
+		self.dueTime=dueTime
+		self.shortDesc=shortDesc
+		self.profitRate=profitRate
+		self.profitType=profitType
+		self.profitDesc=profitDesc
+		slef.status=status
+		self.organization=organization
+		self.investType=investType
+		self.investArea=investArea
+		self.total=total
+		self.detailDesc=detailDesc
+		self.riskControl=riskControl
+	
 	def __repr__(self):
-		return 'Product %r' %(self.name)
+		return 'Product is %r' %(self.name)
 

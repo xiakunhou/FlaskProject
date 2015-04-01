@@ -4,6 +4,39 @@ from flask import render_template,flash,redirect
 from forms import LoginForm
 from models import Product
 
+@app.route('/products')
+def products():
+	# products=[
+	# {
+ # 	 'id':10000000,
+	#  'name':'优债4号', 
+	#  'threshold':1000000,
+	#  'dueTime':'24月',
+	#  'shortDesc':'AA级国有肚子企业担保',
+	#  'profitRate':0.102,
+	#  'status':1 #火热募集中
+	# },
+	# {
+	#  'id':'10000001',
+	#  'name':'金马210号', 
+	#  'threshold':500000,
+	#  'dueTime':'12月',
+	#  'shortDesc':'AA级国有肚子企业担保',
+	#  'profitRate':0.120,
+	#  'status':1 #火热募集中
+	# }
+	# ]
+	products=Product.query.all()
+	return render_template('products.html',products=products)
+
+@app.route('/product/<id>')
+def product(id):
+	product=Product.query.filter_by(id=id).first()
+	#if product == None:
+    #	flash('Product ' + id + ' not found.')
+    #    return redirect(url_for('index'))
+    	return render_template('product.html', product=product)
+    	
 @app.route('/')
 @app.route('/index')
 def index():
@@ -26,28 +59,6 @@ def login():
         return redirect('/index')
 	return render_template('login.html',title = 'Sign In',form = form)
 
-@app.route('/products')
-def products():
-	products=[
-	{
- 	 'id':10000000,
-	 'name':'优债4号', 
-	 'threshold':1000000,
-	 'dueTime':'24月',
-	 'shortDesc':'AA级国有肚子企业担保',
-	 'profitRate':0.102,
-	 'status':1 #火热募集中
-	},
-	{
-	 'id':'10000001',
-	 'name':'金马210号', 
-	 'threshold':500000,
-	 'dueTime':'12月',
-	 'shortDesc':'AA级国有肚子企业担保',
-	 'profitRate':0.120,
-	 'status':1 #火热募集中
-	}
-	]
-	products=Product.query.all()
-	return render_template('products.html',products=products)
+
+
 
