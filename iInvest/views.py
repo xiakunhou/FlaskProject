@@ -1,6 +1,6 @@
 #coding:utf-8
 from iInvest import app
-from flask import render_template,flash,redirect
+from flask import render_template,flash,redirect, request
 from forms import LoginForm
 from models import Product
 
@@ -39,6 +39,14 @@ def login():
         return redirect('/index')
 	return render_template('login.html',title = 'Sign In',form = form)
 
+@app.route('/signup')
+def signup():
+	return render_template('signup.html')
 
+@app.route('/hello/', methods=['POST'])
+def hello():
+    name=request.form['yourname']
+    email=request.form['youremail']
+    return render_template('form_action.html', name=name, email=email)
 
 
