@@ -67,4 +67,4 @@ def product(id):
 	if 'json'!=request.args.get('format'):
 		return render_template('product.html', product=product)
 	else:
-		json.dumps(product, default=Product.product2dict)
+		return json.dumps(product, default=Product.product2dict)
