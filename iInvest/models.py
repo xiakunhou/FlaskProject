@@ -36,3 +36,21 @@ class Product(db.Model):
 	def __repr__(self):
 		return 'Product is %r' %(self.name)
 
+	def product2dict(prod):
+		return {
+			'id': prod.prod.id,
+			'name': prod.name,
+			'threshold': prod.threshold,
+			'dueTime': prod.dueTime,
+			'shortDesc': prod.shortDesc,
+			'profitRate': prod.profitRate,
+			'profitType': prod.profitType,
+			'profitDesc': prod.profitDesc,
+			'status': prod.status,
+			'organization': prod.organization,
+			'investType': prod.investType,
+			'investArea': prod.investArea,
+			'sotal': prod.total,
+			'detailDesc': prod.detailDesc,
+			'siskControl': prod.riskControl
+		}

@@ -1,21 +1,9 @@
 #coding:utf-8
-from iInvest import app
+from iInvest import app, db
 from flask import render_template,flash,redirect, request
-from forms import LoginForm
+from forms import LoginForm, RegistrationForm
 from models import Product
-
-@app.route('/products')
-def products():
-	products=Product.query.all()
-	return render_template('products.html',products=products)
-
-@app.route('/product/<id>')
-def product(id):
-	product=Product.query.filter_by(id=id).first()
-	#if product == None:
-    #	flash('Product ' + id + ' not found.')
-    #    return redirect(url_for('index'))
-    	return render_template('product.html', product=product)
+import json
     	
 @app.route('/')
 @app.route('/index')
@@ -50,3 +38,33 @@ def hello():
     return render_template('form_action.html', name=name, email=email)
 
 
+@app.route('/register', methods=['GET','POST'])
+def register():
+	form=RegistrationForm(request.form)
+	if request.method=='POST' and form.validate():
+		user=User(form.username.data,form.email.data,form.password.data)
+		db.add(user)
+		db.commit()
+		flash('Thanks for registering')
+		return redirect(url_for('login'))
+	return render_template('register.html', form=form)
+
+@app.route('/products')
+def products():
+	products=Product.query.all()
+	if 'json'!=request.args.get('format'):
+		return render_template('products.html',products=products)
+	else:
+		return
+
+
+@app.route('/product/<id>')
+def product(id):
+	product=Product.query.filter_by(id=id).first()
+	#if product == None:
+    #	flash('Product ' + id + ' not found.')
+    #    return redirect(url_for('index'))
+	if 'json'!=request.args.get('format'):
+		return render_template('product.html', product=product)
+	else:
+		json.dumps(product, default=Product.product2dict)
