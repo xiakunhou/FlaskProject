@@ -51,9 +51,9 @@ def register():
 
 @app.route('/products')
 def products():
-	p=Product(name='sadfasdf', threshold=12100, dueTime='asdasd', shortDesc='123123', profitRate='123123', profitType='1231231', profitDesc='123123', status='123123',organization='123132',investType='123123',investArea='123123',total=2300,detailDesc='asd',riskControl=1)
-	db.session.add(p)
-	db.session.commit()
+	# p=Product(name='sadfasdf', threshold=12100, dueTime='asdasd', shortDesc='123123', profitRate='123123', profitType='1231231', profitDesc='123123', status='123123',organization='123132',investType='123123',investArea='123123',total=2300,detailDesc='asd',riskControl=1)
+	# db.session.add(p)
+	# db.session.commit()
 	products=Product.query.all()
 	if 'json'!=request.args.get('format'):
 		return render_template('products.html',products=products)
