@@ -25,7 +25,7 @@ class Product(db.Model):
 		self.profitRate=profitRate
 		self.profitType=profitType
 		self.profitDesc=profitDesc
-		slef.status=status
+		self.status=status
 		self.organization=organization
 		self.investType=investType
 		self.investArea=investArea
@@ -38,7 +38,7 @@ class Product(db.Model):
 
 	def product2dict(prod):
 		return {
-			'id': prod.prod.id,
+			'id': prod.id,
 			'name': prod.name,
 			'threshold': prod.threshold,
 			'dueTime': prod.dueTime,
