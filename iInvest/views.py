@@ -1,6 +1,6 @@
 #coding:utf-8
 from iInvest import app, db
-from flask import render_template,flash,redirect, request, abort, url_for
+from flask import render_template,flash,redirect, request, abort, url_for, session
 from forms import LoginForm, RegistrationForm, ProductForm
 from models import Product
 import json
@@ -19,23 +19,32 @@ def index():
 	]
 	return render_template('index.html',user=user,title='Home',posts=posts)
 
-@app.route('/login', methods = ['GET', 'POST'])
-def login():
-	form = LoginForm()
-	if form.validate_on_submit():
-		flash('Login requested for OpenID="' + form.openid.data + '", remember_me=' + str(form.remember_me.data))
-        return redirect('/index')
-	return render_template('login.html',title = 'Sign In',form = form)
+# @app.route('/login', methods = ['GET', 'POST'])
+# def login():
+# 	form = LoginForm()
+# 	if form.validate_on_submit():
+# 		flash('Login requested for OpenID="' + form.openid.data + '", remember_me=' + str(form.remember_me.data))
+#         return redirect('/index')
+# 	return render_template('login.html',title = 'Sign In',form = form)
 
-@app.route('/signup')
-def signup():
-	return render_template('signup.html')
+@app.route('/login')
+def login():
+	return render_template('signin.html')
 
 @app.route('/hello/', methods=['POST'])
 def hello():
     name=request.form['yourname']
-    email=request.form['youremail']
-    return render_template('form_action.html', name=name, email=email)
+    password=request.form['password']
+    if name=='admin' and password=='admin':
+    	flash('you are logged in!')
+    	session['admin_logged']=True
+    	return redirect(url_for('get_products'))
+
+@app.route('/logout')
+def logout():
+	session.pop('admin_logged', None)
+	flash('Logged out!')
+	return redirect(url_for('get_products'))
 
 
 @app.route('/register', methods=['GET','POST'])

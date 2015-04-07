@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
+{% if session.admin_logged %}
 <form action="{{ url_for('create_product') }}" method=post class=add-tag>
-
 <d1>
 	<dt>Name:</dt>
 	<dd><input type=text size=30 name=name></dd>
@@ -16,6 +16,7 @@
 	<dd><input type=text size=30 name=organization></dd>
 	<dd><input type=submit value=Add product></dd>
 </form>
+{% endif %}
 <h1>Products List</h1>
 {% for product in products %}
 <p><a href="/product/{{product.id}}">{{product.name}} </a>details: <b>{{product.shortDesc}}</b></p>
