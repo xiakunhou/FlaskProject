@@ -1,7 +1,7 @@
 #coding:utf-8
 from iInvest import app, db
-from flask import render_template,flash,redirect, request
-from forms import LoginForm, RegistrationForm
+from flask import render_template,flash,redirect, request, abort, url_for
+from forms import LoginForm, RegistrationForm, ProductForm
 from models import Product
 import json
     	
@@ -49,8 +49,8 @@ def register():
 		return redirect(url_for('login'))
 	return render_template('register.html', form=form)
 
-@app.route('/products')
-def products():
+@app.route('/products', methods=['GET'])
+def get_products():
 	# p=Product(name='sadfasdf', threshold=12100, dueTime='asdasd', shortDesc='123123', profitRate='123123', profitType='1231231', profitDesc='123123', status='123123',organization='123132',investType='123123',investArea='123123',total=2300,detailDesc='asd',riskControl=1)
 	# db.session.add(p)
 	# db.session.commit()
@@ -62,6 +62,31 @@ def products():
 		for product in products:
 			productsList.append(Product.product2dict(product))
 		return json.dumps(productsList, ensure_ascii=False).encode('utf8')
+
+@app.route('/products', methods=['POST'])
+def create_product():
+	#if not request.json or 'name' not in request.json:
+	#	abort(404)
+	# name=request.json['name']
+	# threshold=request.json.get('threshold', 1000000)
+	# dueTime=request.json.get('dueTime', 'aa')
+	# shortDesc=request.json.get('shortDesc')
+	# profitRate=request.json.get('profitRate',0.10)
+	# profitType=request.json.get('profitType', 'zhaiquan')
+	# profitDesc=request.json.get('profitDesc','this is a good desc')
+	# status=request.json.get('status', 'this is status')
+	# organization=request.json.get('organization', 'org1')
+	# investType=request.json.get('investType', 'investType')
+	# investArea=request.json.get('investArea', 'investArea')
+	# total=request.json.get('total',5000000)
+	# detailDesc=request.json.get('detailDesc','detailDesc')
+	# riskControl=request.json.get('riskControl', 'riskControl')
+	form=ProductForm(request.form)
+	p=Product(name=form.name.data, threshold=form.threshold.data, dueTime=form.dueTime.data, shortDesc=form.shortDesc.data, profitRate=form.profitRate.data, profitType=form.profitType.data, profitDesc=form.profitDesc.data, status=form.status.data,organization=form.organization.data,investType=form.investType.data,investArea=form.investArea.data,total=form.total.data,detailDesc=form.detailDesc.data,riskControl=form.riskControl.data)
+	db.session.add(p)
+	db.session.commit()
+	flash('Add product successfully!')
+	return redirect(url_for('create_product'))
 
 @app.route('/product/<id>')
 def product(id):

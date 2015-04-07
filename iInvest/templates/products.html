@@ -1,6 +1,21 @@
 {% extends "base.html" %}
 
 {% block content %}
+<form action="{{ url_for('create_product') }}" method=post class=add-tag>
+
+<d1>
+	<dt>Name:</dt>
+	<dd><input type=text size=30 name=name></dd>
+	<dt>threshold:</dt>
+	<dd><input type=text size=30 name=threshold></dd>
+	<dt>shortDesc:</dt>
+	<dd><input type=text size=30 name=shortDesc></dd>
+	<dt>profitRate:</dt>
+	<dd><input type=text size=30 name=profitRate></dd>
+	<dt>organization:</dt>
+	<dd><input type=text size=30 name=organization></dd>
+	<dd><input type=submit value=Add product></dd>
+</form>
 <h1>Products List</h1>
 {% for product in products %}
 <p><a href="/product/{{product.id}}">{{product.name}} </a>details: <b>{{product.shortDesc}}</b></p>
