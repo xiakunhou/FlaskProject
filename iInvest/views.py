@@ -61,7 +61,7 @@ def products():
 		productsList=[]
 		for product in products:
 			productsList.append(Product.product2dict(product))
-		return json.dumps(productsList)
+		return json.dumps(productsList, ensure_ascii=False).encode('utf8')
 
 @app.route('/product/<id>')
 def product(id):
@@ -72,4 +72,4 @@ def product(id):
 	if 'json'!=request.args.get('format'):
 		return render_template('product.html', product=product)
 	else:
-		return json.dumps(product, default=Product.product2dict)
+		return json.dumps(product, default=Product.product2dict, ensure_ascii=False).encode('utf8')
