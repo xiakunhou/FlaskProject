@@ -60,9 +60,8 @@ def products():
 	else:
 		productsList=[]
 		for product in products:
-			productsList.append(json.dumps(product, default=Product.product2dict))
+			productsList.append(Product.product2dict(product))
 		return json.dumps(productsList)
-
 
 @app.route('/product/<id>')
 def product(id):
