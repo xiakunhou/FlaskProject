@@ -4,6 +4,7 @@ from flask import render_template,flash,redirect, request, abort, url_for, sessi
 from forms import LoginForm, RegistrationForm, ProductForm
 from models import Product
 import json
+import flask
     	
 @app.route('/')
 def home():
