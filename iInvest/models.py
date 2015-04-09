@@ -16,8 +16,13 @@ class Product(db.Model):
 	total=db.Column(db.Integer)
 	detailDesc=db.Column(db.String(256))
 	riskControl=db.Column(db.String(256))
+	nav=db.Column(db.Float)
+	startDate=db.Column(db.Date)
+	broker=db.Column(db.String(45))
+
+
 	
-	def __init__(self, name, threshold, dueTime, shortDesc, profitRate, profitType, profitDesc, status,organization,investType,investArea,total,detailDesc,riskControl):
+	def __init__(self, name, threshold, dueTime, shortDesc, profitRate, profitType, profitDesc, status,organization,investType,investArea,total,detailDesc,riskControl,nav,startDate, broker):
 		self.name=name
 		self.threshold=threshold
 		self.dueTime=dueTime
@@ -32,6 +37,9 @@ class Product(db.Model):
 		self.total=total
 		self.detailDesc=detailDesc
 		self.riskControl=riskControl
+		self.nav=nav
+		self.startDate=startDate
+		self.broker=broker
 	
 	def __repr__(self):
 		return 'Product is %r' %(self.name)
@@ -52,5 +60,8 @@ class Product(db.Model):
 			'investArea': prod.investArea,
 			'sotal': prod.total,
 			'detailDesc': prod.detailDesc,
-			'siskControl': prod.riskControl
+			'riskControl': prod.riskControl,
+			'nav':prod.nav,
+			'startDate':prod.startDate,
+			'broker':prod.broker
 		}
