@@ -68,6 +68,7 @@ class Product(db.Model):
 		}
 
 class Preorder(db.Model):
+	import datetime
 	id=db.Column(db.Integer, primary_key=True)
 	name=db.Column(db.String(45))
 	phone=db.Column(db.Integer)
