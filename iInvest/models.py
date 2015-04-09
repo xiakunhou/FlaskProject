@@ -62,6 +62,6 @@ class Product(db.Model):
 			'detailDesc': prod.detailDesc,
 			'riskControl': prod.riskControl,
 			'nav':prod.nav,
-			'startDate':prod.startDate,
+			'startDate':prod.startDate.strftime('%m/%d/%Y'),
 			'broker':prod.broker
 		}
