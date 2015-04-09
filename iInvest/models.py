@@ -1,4 +1,5 @@
 from iInvest import db
+import datetime
 
 class Product(db.Model):
 	id=db.Column(db.Integer, primary_key=True)
@@ -65,3 +66,18 @@ class Product(db.Model):
 			'startDate':prod.startDate.strftime('%m/%d/%Y'),
 			'broker':prod.broker
 		}
+
+class Preorder(db.Model):
+	id=db.Column(db.Integer, primary_key=True)
+	name=db.Column(db.String(45))
+	phone=db.Column(db.Integer)
+	product_id=db.Column(db.Integer,db.ForeignKey('product.id'))
+	status=db.Column(db.SmallInteger)#0, solved, 1 not solve, 2 solving, 3 high interest. 
+	createTime=db.Column(db.DateTime, default=datetime.datetime.utcnow())
+	updateTime=db.Column(db.DateTime,default=datetime.datetime.utcnow())
+
+	def __init__(self, name, phone, product_id):
+		self.name=name
+		self.phone=phone
+		self.product_id=product_id
+		self.status=1

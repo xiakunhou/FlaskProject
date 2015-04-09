@@ -2,7 +2,7 @@
 from iInvest import app, db
 from flask import render_template,flash,redirect, request, abort, url_for, session
 from forms import LoginForm, RegistrationForm, ProductForm
-from models import Product
+from models import Product, Preorder
 import json
 import flask
     	
@@ -79,22 +79,6 @@ def get_products():
 
 @app.route('/products', methods=['POST'])
 def create_product():
-	#if not request.json or 'name' not in request.json:
-	#	abort(404)
-	# name=request.json['name']
-	# threshold=request.json.get('threshold', 1000000)
-	# dueTime=request.json.get('dueTime', 'aa')
-	# shortDesc=request.json.get('shortDesc')
-	# profitRate=request.json.get('profitRate',0.10)
-	# profitType=request.json.get('profitType', 'zhaiquan')
-	# profitDesc=request.json.get('profitDesc','this is a good desc')
-	# status=request.json.get('status', 'this is status')
-	# organization=request.json.get('organization', 'org1')
-	# investType=request.json.get('investType', 'investType')
-	# investArea=request.json.get('investArea', 'investArea')
-	# total=request.json.get('total',5000000)
-	# detailDesc=request.json.get('detailDesc','detailDesc')
-	# riskControl=request.json.get('riskControl', 'riskControl')
 	form=ProductForm(request.form)
 	p=Product(name=form.name.data, threshold=form.threshold.data, dueTime=form.dueTime.data, shortDesc=form.shortDesc.data, profitRate=form.profitRate.data, profitType=form.profitType.data, profitDesc=form.profitDesc.data, status=form.status.data,organization=form.organization.data,investType=form.investType.data,investArea=form.investArea.data,total=form.total.data,detailDesc=form.detailDesc.data,riskControl=form.riskControl.data)
 	db.session.add(p)
@@ -112,3 +96,14 @@ def product(id):
 		return render_template('product.html', product=product)
 	else:
 		return json.dumps(product, default=Product.product2dict, ensure_ascii=False).encode('utf8')
+
+
+@app.route('/preorders/', methods=['POST'])
+def create_preordes():
+	if not request.json or not 'product_id' in request.json or not 'name' in request.json or not 'phone' in request.json:
+		abort(400)
+	preorder=Preorder(request.json['name'],request.json['phone'],request.json['product_id'])
+	db.session.add(preorder)
+	db.session.commit()
+	flash('Add preorder successfully!')
+	return 201	
