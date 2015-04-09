@@ -52,6 +52,10 @@ def logout():
 	flash('Logged out!')
 	return redirect(url_for('get_products'))
 
+@app.after_request
+def add_header(response):
+	response.headers['Access-Control-Allow-Origin']='*'
+	return response
 
 @app.route('/register', methods=['GET','POST'])
 def register():
