@@ -7,11 +7,6 @@ import json
 import flask
     	
 @app.route('/')
-def home():
-	resp=flask.Response('foo bar baz')
-	resp.headers['Access-Control-Allow-Origin']='*'
-	return resp
-
 @app.route('/index')
 def index():
 	user={'nickname':'MM'}
