@@ -2,9 +2,11 @@
 from iInvest import app, db
 from flask import render_template,flash,redirect, request, abort, url_for, session
 from forms import LoginForm, RegistrationForm, ProductForm
+import datetime
 from models import Product, Preorder
 import json
 import flask
+
     	
 @app.route('/')
 @app.route('/index')

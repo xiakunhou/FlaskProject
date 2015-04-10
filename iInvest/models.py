@@ -1,5 +1,5 @@
 from iInvest import db
-import datetime
+from datetime import datetime
 
 class Product(db.Model):
 	id=db.Column(db.Integer, primary_key=True)
@@ -68,17 +68,21 @@ class Product(db.Model):
 		}
 
 class Preorder(db.Model):
-	import datetime
 	id=db.Column(db.Integer, primary_key=True)
 	name=db.Column(db.String(45))
 	phone=db.Column(db.Integer)
 	product_id=db.Column(db.Integer,db.ForeignKey('product.id'))
+	product=db.relationship('Product', backref=db.backref('preorders', lazy='dynamic'))
 	status=db.Column(db.SmallInteger)#0, solved, 1 not solve, 2 solving, 3 high interest. 
-	createTime=db.Column(db.DateTime, default=datetime.datetime.utcnow())
-	updateTime=db.Column(db.DateTime,default=datetime.datetime.utcnow())
+	createTime=db.Column(db.DateTime)
+	updateTime=db.Column(db.DateTime)
 
 	def __init__(self, name, phone, product_id):
 		self.name=name
 		self.phone=phone
 		self.product_id=product_id
 		self.status=1
+		if createTime is None:
+			createTime=datetime.utcnow()
+		if updateTime is None:
+			updateTime=datetime.utcnow()
