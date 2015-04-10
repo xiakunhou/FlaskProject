@@ -20,14 +20,14 @@
 <h1>Products List</h1>
 {% for product in products %}
 <p><a href="/product/{{product.id}}">{{product.name}} </a>details: <b>{{product.shortDesc}}</b></p>
-<form action="{{ url_for('create_preordes') }}" method=post class=add-tag>
+<form action="{{ url_for('create_preorders') }}" method=post class=add-tag>
 <d1>
 	<dt>Name:</dt>
-	<dd><input type=text size=30 name=name></dd>
+	<dd><input type=text size=30 name="customer_name"></dd>
 	<dt>Phone Number:</dt>
-	<dd><input type=text size=30 name=phone></dd>
+	<dd><input type=text size=30 name="customer_phone"></dd>
 	<dt>Product ID:</dt>
-	<dd><input type=text size=30 name=phone value={{product.id}}></dd>
+	<dd><input type=text size=30 name="product_id" value={{product.id}}></dd>
 	<dd><input type=submit value=YUE!></dd>
 </form>
 {% endfor %}

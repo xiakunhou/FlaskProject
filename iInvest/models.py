@@ -39,6 +39,8 @@ class Product(db.Model):
 		self.detailDesc=detailDesc
 		self.riskControl=riskControl
 		self.nav=nav
+		if startDate is None:
+			self.startDate=datetime.utcnow().date()
 		self.startDate=startDate
 		self.broker=broker
 	
@@ -71,13 +73,13 @@ class Preorder(db.Model):
 	id=db.Column(db.Integer, primary_key=True)
 	name=db.Column(db.String(45))
 	phone=db.Column(db.Integer)
-	product_id=db.Column(db.Integer,db.ForeignKey('product.id'))
+	product_id=db.Column(db.Integer, db.ForeignKey('product.id'))
 	product=db.relationship('Product', backref=db.backref('preorders', lazy='dynamic'))
 	status=db.Column(db.SmallInteger)#0, solved, 1 not solve, 2 solving, 3 high interest. 
 	createTime=db.Column(db.DateTime)
 	updateTime=db.Column(db.DateTime)
 
-	def __init__(self, name, phone, product_id):
+	def __init__(self, name, phone, product_id, createTime=None,updateTime=None):
 		self.name=name
 		self.phone=phone
 		self.product_id=product_id

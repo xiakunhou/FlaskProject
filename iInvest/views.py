@@ -99,13 +99,17 @@ def product(id):
 	else:
 		return json.dumps(product, default=Product.product2dict, ensure_ascii=False).encode('utf8')
 
+@app.route('/preorders/', methods=['GET'])
+def get_preorders():
+	preorders=Preorder.query.all()
+	return render_template('preorders.html', preorders=preorders)
 
 @app.route('/preorders/', methods=['POST'])
-def create_preordes():
-	if not request.json or not 'product_id' in request.json or not 'name' in request.json or not 'phone' in request.json:
+def create_preorders():
+	if not request.form or not 'product_id' in request.form or not 'customer_name' in request.form or not 'customer_phone' in request.form:
 		abort(400)
-	preorder=Preorder(request.json['name'],request.json['phone'],request.json['product_id'])
+	preorder=Preorder(request.form['customer_name'],request.form['customer_phone'],request.form['product_id'])
 	db.session.add(preorder)
 	db.session.commit()
 	flash('Add preorder successfully!')
-	return 201	
+	return redirect(url_for('create_preorders'))
