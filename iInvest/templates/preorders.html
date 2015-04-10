@@ -3,6 +3,6 @@
 {% block content %}
 <h1>Products List</h1>
 {% for preorder in preorders %}
-<p>{{preorder.name}} </a>details: <b>{{preorder.product_id}}</b></p>
+<p>customer: {{preorder.name}} product id: <b>{{preorder.product_id}}product name: {{preorder.product.name}} order status:{{preorder.status}} order create time{{preorder.createTime}}</b></p>
 {% endfor %}
 {% endblock %}
