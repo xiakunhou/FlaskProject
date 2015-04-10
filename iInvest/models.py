@@ -40,7 +40,7 @@ class Product(db.Model):
 		self.riskControl=riskControl
 		self.nav=nav
 		if startDate is None:
-			self.startDate=datetime.utcnow().date()
+			startDate=datetime.utcnow().date()
 		self.startDate=startDate
 		self.broker=broker
 	
@@ -86,5 +86,7 @@ class Preorder(db.Model):
 		self.status=1
 		if createTime is None:
 			createTime=datetime.utcnow()
+		self.createTime=createTime
 		if updateTime is None:
 			updateTime=datetime.utcnow()
+		self.updateTime=updateTime
