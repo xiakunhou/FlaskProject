@@ -1,6 +1,6 @@
 #coding:utf-8
 from iInvest import app, db
-from flask import render_template,flash,redirect, request, abort, url_for, session
+from flask import render_template,flash,redirect, request, abort, url_for, session, jsonify
 from forms import LoginForm, RegistrationForm, ProductForm
 import datetime
 from models import Product, Preorder
@@ -113,3 +113,19 @@ def create_preorders():
 	db.session.commit()
 	flash('Add preorder successfully!')
 	return redirect(url_for('create_preorders'))
+#@csrt.exempt
+@app.route('/preorders/json', methods=['POST'])
+def json_create_preorders():
+	#print request
+	print 'test'
+	#print request.json
+	print request.mimetype
+	print request.json
+	print 'aaa',request.get_json(force=True)
+	print request.json['product_id']
+	if not request.json or not 'product_id' in request.json or not 'customer_name' in request.json or not 'customer_phone' in request.json:
+		abort(400)
+	preorder=Preorder(request.json['customer_name'],request.json['customer_phone'],request.json['product_id'])
+	db.session.add(preorder)
+	db.session.commit()
+	return jsonify({'status':'success'}), 201
