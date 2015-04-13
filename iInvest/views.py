@@ -135,14 +135,13 @@ def json_create_preorders():
 def get_trust_products():
 	product_list=TrustProduct.query.with_entities(TrustProduct.name, TrustProduct.reason, TrustProduct.threshold,TrustProduct.dueTime,TrustProduct.profitRate).all()
 	#product_list=TrustProduct.query(TrustProduct.name, TrustProduct.reason, TrustProduct.threshold,TrustProduct.dueTime,TrustProduct.profitRate)
-	print 'AAA',product_list
+	productsList=[]
+	for product in product_list:
+		productsList.append({'name':product[0],'reason':product[1],'threshold':product[2],'dueTime':product[3],'profitRate':product[4]})
 	if 'json'!=request.args.get('format'):
 		#return render_template('products.html',products=product_list)
-		return product_list
+		return json.dumps(productsList, ensure_ascii=False).encode('utf8')
 	else:
-		productsList=[]
-		for product in products:
-			productsList.append(TrustProduct.product2dict(product))
 		return json.dumps(productsList, ensure_ascii=False).encode('utf8')
 
 @app.route('/trustProducts', methods=['POST'])
