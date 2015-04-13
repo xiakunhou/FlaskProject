@@ -134,11 +134,8 @@ def json_create_preorders():
 @app.route('/trustProducts', methods=['GET'])
 def get_trust_products():
 	product_list=TrustProduct.query.with_entities(TrustProduct.name, TrustProduct.reason, TrustProduct.threshold,TrustProduct.dueTime,TrustProduct.profitRate).all()
-	#product_list=TrustProduct.query(TrustProduct.name, TrustProduct.reason, TrustProduct.threshold,TrustProduct.dueTime,TrustProduct.profitRate)
-	print 'AAA',product_list
 	if 'json'!=request.args.get('format'):
-		#return render_template('products.html',products=product_list)
-		return product_list
+		return render_template('products.html',products=product_list)
 	else:
 		productsList=[]
 		for product in products:
@@ -148,10 +145,10 @@ def get_trust_products():
 @app.route('/trustProducts', methods=['POST'])
 def create_trust_product():
 	form=ProductForm(request.form)
-	p=TrustProduct(name=form.name.data, threshold=form.threshold.data, dueTime=form.dueTime.data, shortDesc=form.shortDesc.data, profitRate=form.profitRate.data, profitType=form.profitType.data, profitDesc=form.profitDesc.data, status=form.status.data,organization=form.organization.data,investType=form.investType.data,investArea=form.investArea.data,total=form.total.data,detailDesc=form.detailDesc.data,riskControl=form.riskControl.data)
+	p=TrustProduct(name=form.name.data, reason=form.reason.data, threshold=form.threshold.data, dueTime=form.dueTime.data, shortDesc=form.shortDesc.data, profitRate=form.profitRate.data, profitType=form.profitType.data, profitClose=form.profitClose.data, profitDesc=form.profitDesc.data, status=form.status.data,organization=form.organization.data,investType=form.investType.data,investArea=form.investArea.data,total=form.total.data,detailDesc=form.detailDesc.data,riskControl=form.riskControl.data)
 	db.session.add(p)
 	db.session.commit()
-	flash('Add product successfully!')
+	flash('Add trust product successfully!')
 	return redirect(url_for('create_trust_product'))
 
 @app.route('/trustProduct/<id>', methods=['GET'])

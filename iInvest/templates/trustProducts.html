@@ -2,24 +2,51 @@
 
 {% block content %}
 {% if session.admin_logged %}
+<h1>添加产品：</h1>
 <form action="{{ url_for('create_trust_product') }}" method=post class=add-tag>
 <d1>
-	<dt>Name:</dt>
+	<dt>名称:</dt>
 	<dd><input type=text size=30 name=name></dd>
-	<dt>threshold:</dt>
-	<dd><input type=text size=30 name=threshold></dd>
-	<dt>shortDesc:</dt>
+	<dt>状态:</dt>
+	<dd><input type=text size=30 name=status></dd>
+	<dt>推荐理由:</dt>
+	<dd><input type=text size=30 name=reason></dd>
+	<dt>简要介绍:</dt>
 	<dd><input type=text size=30 name=shortDesc></dd>
-	<dt>profitRate:</dt>
+	<dt>预期收益:</dt>
 	<dd><input type=text size=30 name=profitRate></dd>
-	<dt>organization:</dt>
+	<dt>收益说明:</dt>
+	<dd><input type=text size=30 name=profitDesc></dd>
+	<dt>收益类型:</dt>
+	<dd><input type=text size=30 name=profitType></dd>
+	<dt>收益分配:</dt>
+	<dd><input type=text size=30 name=profitClose></dd>
+	<dt>管理机构:</dt>
 	<dd><input type=text size=30 name=organization></dd>
+	<dt>产品期限:</dt>
+	<dd><input type=text size=30 name=dueTime>单位（月）</dd>
+	<dt>投资起点:</dt>
+	<dd><input type=text size=30 name=threshold></dd>
+	<dt>发行规模:</dt>
+	<dd><input type=text size=30 name=total></dd>
+	<dt>投资领域:</dt>
+	<dd><input type=text size=30 name=investArea></dd>
+	<dt>投资方式:</dt>
+	<dd><input type=text size=30 name=investType></dd>
+	<dt>资金用途:</dt>
+	<dd><input type=text size=30 name=detailDesc></dd>
+	<dt>风控措施:</dt>
+	<dd><input type=text size=30 name=riskControl></dd>
 	<dd><input type=submit value=Add product></dd>
 </form>
 {% endif %}
-<h1>信托产品</h1>
+<h1>信托产品：</h1>
 {% for product in products %}
-<p><a href="/product/{{product.id}}">{{product.name}} </a>details: <b>{{product.shortDesc}}</b></p>
+<p><a href="/product/{{product.id}}">名字：{{product.name}} 
+<p>投资起点：{{product.threshold}}
+<p>投资期限：{{product.dueTime}}
+<p>推荐理由：{{product.reason}}
+<p>预期收益：{{product.profitRate}}</b></p>
 <form action="{{ url_for('create_preorders') }}" method=post class=add-tag>
 <d1>
 	<dt>Name:</dt>

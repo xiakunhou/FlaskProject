@@ -84,6 +84,8 @@ class TrustProduct(db.Model):
 	profitRate=db.Column(db.Float)
 	#收益类型
 	profitType=db.Column(db.String(50))
+	#收益分配
+	profitClose=db.Column(db.String(50))
 	#收益说明
 	profitDesc=db.Column(db.String(300))
 	#状态，1:募集中，0，售完
@@ -101,7 +103,7 @@ class TrustProduct(db.Model):
 	#风险控制
 	riskControl=db.Column(db.String(500))
 	
-	def __init__(self, name, reason, threshold, dueTime, shortDesc, profitRate, profitType, profitDesc, status,organization,investType,investArea,total,detailDesc,riskControl):
+	def __init__(self, name, reason, threshold, dueTime, shortDesc, profitRate, profitType, profitClose, profitDesc, status,organization,investType,investArea,total,detailDesc,riskControl):
 		self.name=name
 		self.threshold=threshold
 		self.dueTime=dueTime
@@ -112,6 +114,7 @@ class TrustProduct(db.Model):
 		self.status=status
 		self.organization=organization
 		self.investType=investType
+		self.profitClose=profitClose
 		self.investArea=investArea
 		self.total=total
 		self.detailDesc=detailDesc
