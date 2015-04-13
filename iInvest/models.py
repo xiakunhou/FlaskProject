@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from iInvest import db
 from datetime import datetime
 
@@ -86,7 +87,7 @@ class TrustProduct(db.Model):
 	#收益说明
 	profitDesc=db.Column(db.String(300))
 	#状态，1:募集中，0，售完
-	status=db.Column(db.TinyInteger)
+	status=db.Column(db.SmallInteger)
 	#管理机构
 	organization=db.Column(db.String(50))
 	#投资方式
@@ -100,7 +101,7 @@ class TrustProduct(db.Model):
 	#风险控制
 	riskControl=db.Column(db.String(500))
 	
-	def __init__(self, name, reason，threshold, dueTime, shortDesc, profitRate, profitType, profitDesc, status,organization,investType,investArea,total,detailDesc,riskControl):
+	def __init__(self, name, reason, threshold, dueTime, shortDesc, profitRate, profitType, profitDesc, status,organization,investType,investArea,total,detailDesc,riskControl):
 		self.name=name
 		self.threshold=threshold
 		self.dueTime=dueTime

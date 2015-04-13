@@ -3,7 +3,7 @@ from iInvest import app, db
 from flask import render_template,flash,redirect, request, abort, url_for, session, jsonify
 from forms import LoginForm, RegistrationForm, ProductForm
 import datetime
-from models import Product, Preorder
+from models import Product, Preorder, TrustProduct
 import json
 import flask
 
@@ -133,9 +133,12 @@ def json_create_preorders():
 ###############信托产品#########################
 @app.route('/trustProducts', methods=['GET'])
 def get_trust_products():
-	product_list=TrustProduct.query.with_entities(TrustProduct.name, TrustProduct.reason, TrustProduct.threshold,TrustProduct.dueTime,TrustProduct.profitRate)
+	product_list=TrustProduct.query.with_entities(TrustProduct.name, TrustProduct.reason, TrustProduct.threshold,TrustProduct.dueTime,TrustProduct.profitRate).all()
+	#product_list=TrustProduct.query(TrustProduct.name, TrustProduct.reason, TrustProduct.threshold,TrustProduct.dueTime,TrustProduct.profitRate)
+	print 'AAA',product_list
 	if 'json'!=request.args.get('format'):
-		return render_template('products.html',products=products)
+		#return render_template('products.html',products=product_list)
+		return product_list
 	else:
 		productsList=[]
 		for product in products:
@@ -152,7 +155,7 @@ def create_trust_product():
 	return redirect(url_for('create_trust_product'))
 
 @app.route('/trustProduct/<id>', methods=['GET'])
-def product(id):
+def trust_product(id):
 	product=TrustProduct.query.filter_by(id=id).first()
 	#if product == None:
     #	flash('Product ' + id + ' not found.')
@@ -160,4 +163,4 @@ def product(id):
 	if 'json'!=request.args.get('format'):
 		return render_template('trustProduct.html', product=product)
 	else:
-		return json.dumps(product, default=Product.product2dict, ensure_ascii=False).encode('utf8')
+		return json.dumps(product, default=TrustProduct.product2dict, ensure_ascii=False).encode('utf8')
