@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if session.admin_logged %}
+<form action="{{ url_for('create_trust_product') }}" method=post class=add-tag>
+<d1>
+	<dt>Name:</dt>
+	<dd><input type=text size=30 name=name></dd>
+	<dt>threshold:</dt>
+	<dd><input type=text size=30 name=threshold></dd>
+	<dt>shortDesc:</dt>
+	<dd><input type=text size=30 name=shortDesc></dd>
+	<dt>profitRate:</dt>
+	<dd><input type=text size=30 name=profitRate></dd>
+	<dt>organization:</dt>
+	<dd><input type=text size=30 name=organization></dd>
+	<dd><input type=submit value=Add product></dd>
+</form>
+{% endif %}
+<h1>信托产品</h1>
+{% for product in products %}
+<p><a href="/product/{{product.id}}">{{product.name}} </a>details: <b>{{product.shortDesc}}</b></p>
+<form action="{{ url_for('create_preorders') }}" method=post class=add-tag>
+<d1>
+	<dt>Name:</dt>
+	<dd><input type=text size=30 name="customer_name"></dd>
+	<dt>Phone Number:</dt>
+	<dd><input type=text size=30 name="customer_phone"></dd>
+	<dt>Product ID:</dt>
+	<dd><input type=text size=30 name="product_id" value={{product.id}}></dd>
+	<dd><input type=submit value=YUE!></dd>
+</form>
+{% endfor %}
+
+{% endblock %}
+
