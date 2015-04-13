@@ -140,7 +140,7 @@ def get_trust_products():
 		productsList.append({'name':product[0],'reason':product[1],'threshold':product[2],'dueTime':product[3],'profitRate':product[4]})
 	if 'json'!=request.args.get('format'):
 		#return render_template('products.html',products=product_list)
-		return json.dumps(productsList, ensure_ascii=False).encode('utf8')
+		return render_template('trustProducts.html',products=productsList)
 	else:
 		return json.dumps(productsList, ensure_ascii=False).encode('utf8')
 
