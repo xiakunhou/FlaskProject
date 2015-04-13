@@ -43,11 +43,11 @@
 <h1>信托产品：</h1>
 {% for product in products %}
 
-<p><a href="/product/{{product.id}}">名字：{{product.name}} 
+<p>名字：<a href="/product/{{product.id}}">{{product.name}} </a></p>
 <p>投资起点：{{product.threshold}}
 <p>投资期限：{{product.dueTime}}
 <p>推荐理由：{{product.reason}}
-<p>预期收益：{{product.profitRate}}</b></p>
+<p>预期收益：{{product.profitRate}}</b>
 
 <form action="{{ url_for('create_preorders') }}" method=post class=add-tag>
 <d1>
