@@ -128,19 +128,21 @@ class TrustProduct(db.Model):
 		return {
 			'id': prod.id,
 			'name': prod.name,
+			'reason':prod.reason,
 			'threshold': prod.threshold,
 			'dueTime': prod.dueTime,
 			'shortDesc': prod.shortDesc,
 			'profitRate': prod.profitRate,
 			'profitType': prod.profitType,
 			'profitDesc': prod.profitDesc,
+			'profitClose': prod.profitClose,
 			'status': prod.status,
 			'organization': prod.organization,
 			'investType': prod.investType,
 			'investArea': prod.investArea,
 			'total': prod.total,
 			'detailDesc': prod.detailDesc,
-			'riskControl': prod.riskControl,
+			'riskControl': prod.riskControl
 		}
 
 

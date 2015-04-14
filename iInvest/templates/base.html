@@ -5,6 +5,20 @@
     {% else %}
     <title>microblog</title>
     {% endif %}
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript">
+    function deleteProduct(productid, id){
+        $.ajax({
+            url: '/trustProduct/'+productid,
+            type: 'DELETE',
+            success: function(result){
+                $(id).hide();
+            }
+        });
+        
+    }
+
+    </script>
   </head>
   <body>
     <div> <a href="/index">Home</a></div>

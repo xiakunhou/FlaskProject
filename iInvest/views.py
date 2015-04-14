@@ -159,10 +159,14 @@ def create_trust_product():
 @app.route('/trustProduct/<id>', methods=['GET'])
 def trust_product(id):
 	product=TrustProduct.query.filter_by(id=id).first()
-	#if product == None:
-    #	flash('Product ' + id + ' not found.')
-    #    return redirect(url_for('index'))
 	if 'json'!=request.args.get('format'):
 		return render_template('trustProduct.html', product=product)
 	else:
 		return json.dumps(product, default=TrustProduct.product2dict, ensure_ascii=False).encode('utf8')
+
+@app.route('/trustProduct/<id>', methods=['DELETE'])
+def delete_trust_product(id):
+	TrustProduct.query.filter_by(id=id).delete()
+	db.session.commit()
+	flash('Delete trust product successfully!')
+	return '201'

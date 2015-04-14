@@ -61,13 +61,10 @@
 {% endif %}
 <h1>信托产品：</h1>
 {% for product in products %}
-
-<p>名字：<a href="/product/{{product.id}}">{{product.name}} </a></p>
-<p>投资起点：{{product.threshold}}
-<p>投资期限：{{product.dueTime}}
-<p>推荐理由：{{product.reason}}
-<p>预期收益：{{product.profitRate}}</b>
-
+<div id="product{{product.id}}">
+<p>名字：<a href="/trustProduct/{{product.id}}">{{product.name}} </a>    (<a href="javascript:deleteProduct('{{product.id}}', '#product{{product.id}}')">Delete </a>)</p>
+<p>投资起点：{{product.threshold}}    投资期限：{{product.dueTime}}
+<p>推荐理由：{{product.reason}}    预期收益：{{product.profitRate}}</b>
 <form action="{{ url_for('create_preorders') }}" method=post class=atd-tag>
 <d1>
 	<td>Name:</td>
@@ -78,6 +75,8 @@
 	<td><input type=text size=30 name="product_id" value={{product.id}}></td>
 	<td><input type=submit value=YUE!></td>
 </form>
+</div>
+
 {% endfor %}
 
 {% endblock %}
