@@ -65,7 +65,7 @@
 <p>名字：<a href="/trustProduct/{{product.id}}">{{product.name}} </a>    (<a href="javascript:deleteProduct('{{product.id}}', '#product{{product.id}}')">Delete </a>)</p>
 <p>投资起点：{{product.threshold}}    投资期限：{{product.dueTime}}
 <p>推荐理由：{{product.reason}}    预期收益：{{product.profitRate}}</b>
-<form action="{{ url_for('create_preorders') }}" method=post class=atd-tag>
+<form action="{{ url_for('create_trust_preorders') }}" method=post class=atd-tag>
 <d1>
 	<td>Name:</td>
 	<td><input type=text size=30 name="customer_name"></td>

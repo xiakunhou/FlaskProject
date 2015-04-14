@@ -3,7 +3,59 @@
 {% block content %}
 <h1>Product Detail</h1>
 
-<p>{{product.name}} Long details: <b>{{product.detailDesc}}</b></p>
+<table>
+	<tr>
+	<td>名称:</td>
+	<td>{{product.name}}</td>
+	<td>状态:(small int)</td>
+	<td>{{product.status}}</td>
+	</tr>
+	<tr>
+	<td>推荐理由:</td>
+	<td>{{product.reason}}</td>
+	<td>简要介绍:</td>
+	<td>{{product.shortDesc}}</td>
+	</tr>
+	<tr>
+	<td>预期收益:(float)</td>
+	<td>{{product.profitRate}}</td>
+	<td>收益说明:</td>
+	<td>{{product.profitDesc}}</td>
+	</tr>
+	<tr>
+	<td>收益类型:</td>
+	<td>{{product.profitType}}</td>
+	<td>收益分配:</td>
+	<td>{{product.profitClose}}</td>
+	</tr>
+	<tr>
+	<td>管理机构:</td>
+	<td>{{product.organization}}</td>
+	<td>产品期限:(int)</td>
+	<td>{{product.dueTime}}单位（月）</td>
+	</tr>
+	<tr>
+	<td>投资起点:(int)</td>
+	<td>{{product.threshold}}</td>
+	<td>发行规模:(int)</td>
+	<td>{{product.total}}</td>
+	</tr>
+	<tr>
+	<td>投资领域:</td>
+	<td>{{product.investArea}}</td>
+	<td>投资方式:</td>
+	<td>{{product.investType}}</td>
+	</tr>
+	<tr>
+	<td>资金用途:</td>
+	<td>{{product.detailDesc}}</td>
+	<td>风控措施:</td>
+	<td>{{product.riskControl}}</td>
+	</tr>
+	<tr>
+
+	<td<input type=submit value=Atd product}}</td>
+</table>
 
 
 {% endblock %}

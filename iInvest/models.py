@@ -145,6 +145,28 @@ class TrustProduct(db.Model):
 			'riskControl': prod.riskControl
 		}
 
+class TrustProductPreorder(db.Model):
+	id=db.Column(db.Integer, primary_key=True)
+	name=db.Column(db.String(45))
+	phone=db.Column(db.Integer)
+	product_id=db.Column(db.Integer, db.ForeignKey('trust_product.id'))
+	trust_product=db.relationship('TrustProduct', backref=db.backref('trust_preorders', lazy='dynamic'))
+	status=db.Column(db.SmallInteger)#0, solved, 1 not solve, 2 solving, 3 high interest. 
+	createTime=db.Column(db.DateTime)
+	updateTime=db.Column(db.DateTime)
+
+	def __init__(self, name, phone, product_id, createTime=None,updateTime=None):
+		self.name=name
+		self.phone=phone
+		self.product_id=product_id
+		self.status=1
+		if createTime is None:
+			createTime=datetime.utcnow()
+		self.createTime=createTime
+		if updateTime is None:
+			updateTime=datetime.utcnow()
+		self.updateTime=updateTime
+
 
 class Preorder(db.Model):
 	id=db.Column(db.Integer, primary_key=True)

@@ -3,7 +3,7 @@ from iInvest import app, db
 from flask import render_template,flash,redirect, request, abort, url_for, session, jsonify
 from forms import LoginForm, RegistrationForm, ProductForm, TrustProductForm
 import datetime
-from models import Product, Preorder, TrustProduct
+from models import Product, Preorder, TrustProduct, TrustProductPreorder
 import json
 import flask
 
@@ -170,3 +170,27 @@ def delete_trust_product(id):
 	db.session.commit()
 	flash('Delete trust product successfully!')
 	return '201'
+
+@app.route('/trustPreorders/', methods=['GET'])
+def get_trust_preorders():
+	preorders=TrustProductPreorder.query.all()
+	return render_template('trustPreorders.html', preorders=preorders)
+
+@app.route('/trustPreorders/', methods=['POST'])
+def create_trust_preorders():
+	if not request.form or not 'product_id' in request.form or not 'customer_name' in request.form or not 'customer_phone' in request.form:
+		abort(400)
+	preorder=TrustProductPreorder(request.form['customer_name'],request.form['customer_phone'],request.form['product_id'])
+	db.session.add(preorder)
+	db.session.commit()
+	flash('Add preorder successfully!')
+	return redirect(url_for('create_trust_preorders'))
+
+@app.route('/trustPreorders/json', methods=['POST'])
+def json_create_trust_preorders():
+	if not request.json or not 'product_id' in request.json or not 'customer_name' in request.json or not 'customer_phone' in request.json:
+		abort(400)
+	preorder=TrustProductPreorder(request.json['customer_name'],request.json['customer_phone'],request.json['product_id'])
+	db.session.add(preorder)
+	db.session.commit()
+	return jsonify({'status':'success'}), 201
