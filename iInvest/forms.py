@@ -32,12 +32,14 @@ class ProductForm(Form):
 
 class TrustProductForm(Form):
 	name =TextField('product name',[validators.Length(min=4,max=20),validators.Required()])
+	reason =TextField('reason',[validators.Length(min=4,max=20),validators.Required()])
 	threshold =TextField('threshold',[validators.Length(min=4,max=40),validators.Required()])
 	dueTime =TextField('dueTime',[validators.Length(min=4,max=40),validators.Required()])
 	shortDesc =TextField('shortDesc',[validators.Length(min=4,max=40),validators.Required()])
 	profitRate =TextField('profitRate',[validators.Length(min=4,max=40),validators.Required()])
 	profitType =TextField('profitType',[validators.Length(min=4,max=40),validators.Required()])
 	profitDesc =TextField('profitDesc',[validators.Length(min=4,max=40),validators.Required()])
+	profitClose =TextField('profitClose',[validators.Length(min=4,max=40),validators.Required()])
 	status =TextField('status',[validators.Length(min=4,max=40),validators.Required()])
 	organization =TextField('organization',[validators.Length(min=4,max=40),validators.Required()])
 	investType =TextField('investType',[validators.Length(min=4,max=40),validators.Required()])

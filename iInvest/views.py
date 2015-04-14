@@ -1,7 +1,7 @@
 #coding:utf-8
 from iInvest import app, db
 from flask import render_template,flash,redirect, request, abort, url_for, session, jsonify
-from forms import LoginForm, RegistrationForm, ProductForm
+from forms import LoginForm, RegistrationForm, ProductForm, TrustProductForm
 import datetime
 from models import Product, Preorder, TrustProduct
 import json
@@ -133,16 +133,24 @@ def json_create_preorders():
 ###############信托产品#########################
 @app.route('/trustProducts', methods=['GET'])
 def get_trust_products():
-	product_list=TrustProduct.query.with_entities(TrustProduct.name, TrustProduct.reason, TrustProduct.threshold,TrustProduct.dueTime,TrustProduct.profitRate).all()
+	product_list=TrustProduct.query.with_entities(TrustProduct.id, TrustProduct.name, TrustProduct.reason, \
+		TrustProduct.threshold,TrustProduct.dueTime,TrustProduct.profitRate).all()
+	productsList=[]
+	for product in product_list:
+		productsList.append({'id':product[0],'name':product[1],'reason':product[2],'threshold':product[3],'dueTime':product[4],'profitRate':product[5]})
 	if 'json'!=request.args.get('format'):
-		return render_template('trustProducts.html',products=product_list)
+		return render_template('trustProducts.html',products=productsList)
 	else:
 		return json.dumps(productsList, ensure_ascii=False).encode('utf8')
 
 @app.route('/trustProducts', methods=['POST'])
 def create_trust_product():
-	form=ProductForm(request.form)
-	p=TrustProduct(name=form.name.data, reason=form.reason.data, threshold=form.threshold.data, dueTime=form.dueTime.data, shortDesc=form.shortDesc.data, profitRate=form.profitRate.data, profitType=form.profitType.data, profitClose=form.profitClose.data, profitDesc=form.profitDesc.data, status=form.status.data,organization=form.organization.data,investType=form.investType.data,investArea=form.investArea.data,total=form.total.data,detailDesc=form.detailDesc.data,riskControl=form.riskControl.data)
+	form=TrustProductForm(request.form)
+	print form.reason.data
+	p=TrustProduct(name=form.name.data, reason=form.reason.data, threshold=form.threshold.data, dueTime=form.dueTime.data, \
+		shortDesc=form.shortDesc.data, profitRate=form.profitRate.data, profitType=form.profitType.data, profitClose=form.profitClose.data, \
+		profitDesc=form.profitDesc.data, status=form.status.data,organization=form.organization.data,investType=form.investType.data,\
+		investArea=form.investArea.data,total=form.total.data, detailDesc=form.detailDesc.data,riskControl=form.riskControl.data)
 	db.session.add(p)
 	db.session.commit()
 	flash('Add trust product successfully!')

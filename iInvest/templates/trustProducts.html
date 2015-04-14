@@ -3,41 +3,60 @@
 {% block content %}
 {% if session.admin_logged %}
 <h1>添加产品：</h1>
-<form action="{{ url_for('create_trust_product') }}" method=post class=add-tag>
-<d1>
-	<dt>名称:</dt>
-	<dd><input type=text size=30 name=name></dd>
-	<dt>状态:</dt>
-	<dd><input type=text size=30 name=status></dd>
-	<dt>推荐理由:</dt>
-	<dd><input type=text size=30 name=reason></dd>
-	<dt>简要介绍:</dt>
-	<dd><input type=text size=30 name=shortDesc></dd>
-	<dt>预期收益:</dt>
-	<dd><input type=text size=30 name=profitRate></dd>
-	<dt>收益说明:</dt>
-	<dd><input type=text size=30 name=profitDesc></dd>
-	<dt>收益类型:</dt>
-	<dd><input type=text size=30 name=profitType></dd>
-	<dt>收益分配:</dt>
-	<dd><input type=text size=30 name=profitClose></dd>
-	<dt>管理机构:</dt>
-	<dd><input type=text size=30 name=organization></dd>
-	<dt>产品期限:</dt>
-	<dd><input type=text size=30 name=dueTime>单位（月）</dd>
-	<dt>投资起点:</dt>
-	<dd><input type=text size=30 name=threshold></dd>
-	<dt>发行规模:</dt>
-	<dd><input type=text size=30 name=total></dd>
-	<dt>投资领域:</dt>
-	<dd><input type=text size=30 name=investArea></dd>
-	<dt>投资方式:</dt>
-	<dd><input type=text size=30 name=investType></dd>
-	<dt>资金用途:</dt>
-	<dd><input type=text size=30 name=detailDesc></dd>
-	<dt>风控措施:</dt>
-	<dd><input type=text size=30 name=riskControl></dd>
-	<dd><input type=submit value=Add product></dd>
+<form action="{{ url_for('create_trust_product') }}" method=post class=atd-tag>
+<table>
+	<tr>
+	<td>名称:</td>
+	<td><input type=text size=30 name=name></td>
+	<td>状态:(small int)</td>
+	<td><input type=text size=30 name=status></td>
+	</tr>
+	<tr>
+	<td>推荐理由:</td>
+	<td><input type=text size=30 name=reason></td>
+	<td>简要介绍:</td>
+	<td><input type=text size=30 name=shortDesc></td>
+	</tr>
+	<tr>
+	<td>预期收益:(float)</td>
+	<td><input type=text size=30 name=profitRate></td>
+	<td>收益说明:</td>
+	<td><input type=text size=30 name=profitDesc></td>
+	</tr>
+	<tr>
+	<td>收益类型:</td>
+	<td><input type=text size=30 name=profitType></td>
+	<td>收益分配:</td>
+	<td><input type=text size=30 name=profitClose></td>
+	</tr>
+	<tr>
+	<td>管理机构:</td>
+	<td><input type=text size=30 name=organization></td>
+	<td>产品期限:(int)</td>
+	<td><input type=text size=30 name=dueTime>单位（月）</td>
+	</tr>
+	<tr>
+	<td>投资起点:(int)</td>
+	<td><input type=text size=30 name=threshold></td>
+	<td>发行规模:(int)</td>
+	<td><input type=text size=30 name=total></td>
+	</tr>
+	<tr>
+	<td>投资领域:</td>
+	<td><input type=text size=30 name=investArea></td>
+	<td>投资方式:</td>
+	<td><input type=text size=30 name=investType></td>
+	</tr>
+	<tr>
+	<td>资金用途:</td>
+	<td><textarea rows='4' cols='50' name=detailDesc></textarea></td>
+	<td>风控措施:</td>
+	<td><textarea rows='4' cols='50' name=riskControl></textarea></td>
+	</tr>
+	<tr>
+
+	<td><input type=submit value=Atd product></td>
+</table>
 </form>
 {% endif %}
 <h1>信托产品：</h1>
@@ -49,15 +68,15 @@
 <p>推荐理由：{{product.reason}}
 <p>预期收益：{{product.profitRate}}</b>
 
-<form action="{{ url_for('create_preorders') }}" method=post class=add-tag>
+<form action="{{ url_for('create_preorders') }}" method=post class=atd-tag>
 <d1>
-	<dt>Name:</dt>
-	<dd><input type=text size=30 name="customer_name"></dd>
-	<dt>Phone Number:</dt>
-	<dd><input type=text size=30 name="customer_phone"></dd>
-	<dt>Product ID:</dt>
-	<dd><input type=text size=30 name="product_id" value={{product.id}}></dd>
-	<dd><input type=submit value=YUE!></dd>
+	<td>Name:</td>
+	<td><input type=text size=30 name="customer_name"></td>
+	<td>Phone Number:</td>
+	<td><input type=text size=30 name="customer_phone"></td>
+	<td>Product ID:</td>
+	<td><input type=text size=30 name="product_id" value={{product.id}}></td>
+	<td><input type=submit value=YUE!></td>
 </form>
 {% endfor %}
 

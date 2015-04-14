@@ -105,6 +105,7 @@ class TrustProduct(db.Model):
 	
 	def __init__(self, name, reason, threshold, dueTime, shortDesc, profitRate, profitType, profitClose, profitDesc, status,organization,investType,investArea,total,detailDesc,riskControl):
 		self.name=name
+		self.reason=reason
 		self.threshold=threshold
 		self.dueTime=dueTime
 		self.shortDesc=shortDesc
