@@ -1,12 +1,15 @@
 #coding:utf-8
 from iInvest import app, db
-from flask import render_template,flash,redirect, request, abort, url_for, session, jsonify
+from flask import render_template,flash,redirect, request, abort, url_for, session, jsonify, make_response
 from forms import LoginForm, RegistrationForm, ProductForm, TrustProductForm
 import datetime
 from models import Product, Preorder, TrustProduct, TrustProductPreorder
 import json
 import flask
 
+@app.errorhandler(400)
+def bad_request(error):
+	return make_response(jsonify({'error':'Bad request'}), 400)
     	
 @app.route('/')
 @app.route('/index')
@@ -146,7 +149,9 @@ def get_trust_products():
 @app.route('/trustProducts', methods=['POST'])
 def create_trust_product():
 	form=TrustProductForm(request.form)
-	print form.reason.data
+	if not form.validate():
+		print form.errors
+		abort(400)
 	p=TrustProduct(name=form.name.data, reason=form.reason.data, threshold=form.threshold.data, dueTime=form.dueTime.data, \
 		shortDesc=form.shortDesc.data, profitRate=form.profitRate.data, profitType=form.profitType.data, profitClose=form.profitClose.data, \
 		profitDesc=form.profitDesc.data, status=form.status.data,organization=form.organization.data,investType=form.investType.data,\

@@ -54,11 +54,12 @@
 	<td><textarea rows='4' cols='50' name=riskControl></textarea></td>
 	</tr>
 	<tr>
-
+	<input type="hidden" name="csrf_token" value="{{csrf_token()}}" />
 	<td><input type=submit value=Atd product></td>
 </table>
 </form>
 {% endif %}
+
 <h1>信托产品：</h1>
 {% for product in products %}
 <div id="product{{product.id}}">

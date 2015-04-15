@@ -1,7 +1,8 @@
 import os
 
-#CSRF_ENABLED=True
+CSRF_ENABLED=True
 SECRET_KEY='you-will-nerver-guess'
+CSRF_SESSION_KEY='csrf key'
 
 basedir=os.path.abspath(os.path.dirname(__file__))
 #SQLALCHEMY_DATABASE_URI='sqlite:///' + os.path.join(basedir, 'data-test.sqlite')
