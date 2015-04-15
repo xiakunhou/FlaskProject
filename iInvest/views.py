@@ -41,13 +41,13 @@ def hello():
     if name=='admin' and password=='admin':
     	flash('you are logged in!')
     	session['admin_logged']=True
-    	return redirect(url_for('get_products'))
+    	return redirect(url_for('get_trust_products'))
 
 @app.route('/logout')
 def logout():
 	session.pop('admin_logged', None)
 	flash('Logged out!')
-	return redirect(url_for('get_products'))
+	return redirect(url_for('get_trust_products'))
 
 @app.after_request
 def add_header(response):
