@@ -147,10 +147,14 @@ class TrustProduct(db.Model):
 
 class TrustProductPreorder(db.Model):
 	id=db.Column(db.Integer, primary_key=True)
+	#user nick name
 	name=db.Column(db.String(45))
 	phone=db.Column(db.Integer)
 	product_id=db.Column(db.Integer, db.ForeignKey('trust_product.id'))
 	trust_product=db.relationship('TrustProduct', backref=db.backref('trust_preorders', lazy='dynamic'))
+	#associated user, if not registed then a default user 00000000
+	user_id=db.Column(db.Integer, db.ForeignKey('user.id'))
+	user=db.relationship('User',backref=db.backref('users', lazy='dynamic'))
 	status=db.Column(db.SmallInteger)#0, solved, 1 not solve, 2 solving, 3 high interest. 
 	createTime=db.Column(db.DateTime)
 	updateTime=db.Column(db.DateTime)
@@ -189,3 +193,24 @@ class Preorder(db.Model):
 		if updateTime is None:
 			updateTime=datetime.utcnow()
 		self.updateTime=updateTime
+
+class User(db.Model):
+	id=db.Column(db.Integer, primary_key=True)
+	name=db.Column(db.String(45))
+	phone=db.Column(db.Integer)
+	passwd=db.Column(db.String(200))
+	email=db.Column(db.String(50))
+	idNumber=db.Column(db.String(40))
+	gender=db.Column(db.SmallInteger)
+	birthday=db.Column(db.Date)
+	level=db.Column(db.Integer)
+
+	def __init__(self, name, phone, passwd, email=None,idNumber=None, gender=1, birthday=None, level=0):
+		self.name=name
+		self.phone=phone
+		self.passwd=passwd
+		self.email=email
+		self.idNumber=idNumber
+		self.gender=gender
+		self.birthday=birthday
+		self.level=level

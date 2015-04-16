@@ -1,11 +1,12 @@
 #coding:utf-8
-from iInvest import app, db
+from iInvest import app, db, bcrypt
 from flask import render_template,flash,redirect, request, abort, url_for, session, jsonify, make_response
 from forms import LoginForm, RegistrationForm, ProductForm, TrustProductForm
 import datetime
-from models import Product, Preorder, TrustProduct, TrustProductPreorder
+from models import Product, Preorder, TrustProduct, TrustProductPreorder, User
 import json
 import flask
+
 
 @app.errorhandler(400)
 def bad_request(error):
@@ -63,6 +64,7 @@ def add_header(response):
 def register():
 	form=RegistrationForm(request.form)
 	if request.method=='POST' and form.validate():
+		print form.errors
 		user=User(form.username.data,form.email.data,form.password.data)
 		db.add(user)
 		db.commit()

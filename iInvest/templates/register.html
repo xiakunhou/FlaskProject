@@ -28,6 +28,7 @@
     {{ render_field(form.confirm) }}
     {{ render_field(form.accept_tos) }}
   </dl>
+  <input type="hidden" name="csrf_token" value="{{csrf_token()}}"/>
   <p><input type=submit value=Register>
 </form>
 </body>
