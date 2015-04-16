@@ -15,6 +15,7 @@
                   <label for="youremail">Please enter your passoword:</label>
                   <input type="text" name="password" /><br />
                   <input type="submit" value="login"/>
+                  <input type="hidden" name="csrf_token" value="{{csrf_token()}}" />
                 </form>
             </div>
     </body>

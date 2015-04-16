@@ -37,14 +37,16 @@ def index():
 def login():
 	return render_template('signin.html')
 
-@app.route('/hello/', methods=['POST'])
+@app.route('/hello', methods=['POST'])
 def hello():
-    name=request.form['yourname']
-    password=request.form['password']
-    if name=='admin' and password=='admin':
-    	flash('you are logged in!')
-    	session['admin_logged']=True
-    	return redirect(url_for('get_trust_products'))
+	print 'aaa'
+	name=request.form['yourname']
+	password=request.form['password']
+	print name, password
+	if name=='admin' and password=='admin':
+		flash('you are logged in!')
+		session['admin_logged']=True
+		return redirect(url_for('get_trust_products'))
 
 @app.route('/logout')
 def logout():
@@ -150,8 +152,7 @@ def get_trust_products():
 def create_trust_product():
 	form=TrustProductForm(request.form)
 	if not form.validate():
-		print form.errors
-		abort(400)
+		return make_response(jsonify({'error': form.errors}), 400)
 	p=TrustProduct(name=form.name.data, reason=form.reason.data, threshold=form.threshold.data, dueTime=form.dueTime.data, \
 		shortDesc=form.shortDesc.data, profitRate=form.profitRate.data, profitType=form.profitType.data, profitClose=form.profitClose.data, \
 		profitDesc=form.profitDesc.data, status=form.status.data,organization=form.organization.data,investType=form.investType.data,\
