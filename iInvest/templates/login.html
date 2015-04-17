@@ -1,15 +1,22 @@
-<!-- extend from base layout -->
-{% extends "base.html" %}
-
-{% block content %}
-<h1>Sign In</h1>
-<form action="" method="post" name="login">
-    {{form.hidden_tag()}}
-    <p>
-        Please enter your OpenID:<br>
-        {{form.openid(size=80)}}<br>
-    </p>
-    <p>{{form.remember_me}} Remember Me</p>
-    <p><input type="submit" value="Sign In"></p>
-</form>
-{% endblock %}
+<html>
+    <head>
+        <title>Handle POST requests with Flask</title>
+        <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+        <div id="container">
+            <div class="title">
+                <h1>Log in now</h1>
+            </div>
+            <div id="content">
+                <form method="post" action="{{ url_for('hello') }}">
+                  <label for="yourname">Please enter your phone number:</label>
+                  <input type="text" name="phone" /><br />
+                  <label for="youremail">Please enter your passoword:</label>
+                  <input type="text" name="password" /><br />
+                  <input type="submit" value="login"/>
+                  <input type="hidden" name="csrf_token" value="{{csrf_token()}}" />
+                </form>
+            </div>
+    </body>
+</html>

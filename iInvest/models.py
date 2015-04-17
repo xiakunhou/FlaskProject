@@ -196,20 +196,20 @@ class Preorder(db.Model):
 
 class User(db.Model):
 	id=db.Column(db.Integer, primary_key=True)
-	name=db.Column(db.String(45))
 	phone=db.Column(db.Integer)
 	passwd=db.Column(db.String(200))
 	email=db.Column(db.String(50))
+	name=db.Column(db.String(45))
 	idNumber=db.Column(db.String(40))
 	gender=db.Column(db.SmallInteger)
 	birthday=db.Column(db.Date)
 	level=db.Column(db.Integer)
 
-	def __init__(self, name, phone, passwd, email=None,idNumber=None, gender=1, birthday=None, level=0):
-		self.name=name
+	def __init__(self, phone, passwd, email=None,name=None,idNumber=None, gender=1, birthday=None, level=0):
 		self.phone=phone
 		self.passwd=passwd
 		self.email=email
+		self.name=name
 		self.idNumber=idNumber
 		self.gender=gender
 		self.birthday=birthday

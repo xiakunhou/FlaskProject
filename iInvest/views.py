@@ -11,42 +11,24 @@ import flask
 @app.errorhandler(400)
 def bad_request(error):
 	return make_response(jsonify({'error':'Bad request'}), 400)
-    	
-@app.route('/')
-@app.route('/index')
-def index():
-	user={'nickname':'MM'}
-	posts=[
-	{'author':{'nickname':'John'},
-	 'body':'Beautiful day in Portland!'
-	},
-	{'author':{'nickname':'Susan'},
-	 'body':'The Avengers movie was so cool!'
-	}
-	]
-	return render_template('index.html',user=user,title='Home',posts=posts)
-
-# @app.route('/login', methods = ['GET', 'POST'])
-# def login():
-# 	form = LoginForm()
-# 	if form.validate_on_submit():
-# 		flash('Login requested for OpenID="' + form.openid.data + '", remember_me=' + str(form.remember_me.data))
-#         return redirect('/index')
-# 	return render_template('login.html',title = 'Sign In',form = form)
 
 @app.route('/login')
 def login():
-	return render_template('signin.html')
+	return render_template('login.html')
 
 @app.route('/hello', methods=['POST'])
 def hello():
 	print 'aaa'
-	name=request.form['yourname']
+	phone=request.form['phone']
 	password=request.form['password']
-	print name, password
-	if name=='admin' and password=='admin':
-		flash('you are logged in!')
+	print phone, password
+	
+	if phone=='admin' and password=='admin':
+		flash('admin logged in!')
 		session['admin_logged']=True
+		return redirect(url_for('get_trust_products'))
+	storedPW=User.query.filter_by(phone=phone).first().passwd
+	if bcrypt.check_password_hash(storedPW,password+'ta02%&9!(#HHK_dsKYas;'):
 		return redirect(url_for('get_trust_products'))
 
 @app.route('/logout')
@@ -65,18 +47,16 @@ def register():
 	form=RegistrationForm(request.form)
 	if request.method=='POST' and form.validate():
 		print form.errors
-		user=User(form.username.data,form.email.data,form.password.data)
-		db.add(user)
-		db.commit()
+		password=bcrypt.generate_password_hash(form.password.data+'ta02%&9!(#HHK_dsKYas;')
+		user=User(form.phone.data, password)
+		db.session.add(user)
+		db.session.commit()
 		flash('Thanks for registering')
 		return redirect(url_for('login'))
 	return render_template('register.html', form=form)
 
 @app.route('/products', methods=['GET'])
 def get_products():
-	# p=Product(name='sadfasdf', threshold=12100, dueTime='asdasd', shortDesc='123123', profitRate='123123', profitType='1231231', profitDesc='123123', status='123123',organization='123132',investType='123123',investArea='123123',total=2300,detailDesc='asd',riskControl=1)
-	# db.session.add(p)
-	# db.session.commit()
 	products=Product.query.all()
 	if 'json'!=request.args.get('format'):
 		return render_template('products.html',products=products)
@@ -138,6 +118,7 @@ def json_create_preorders():
 	return jsonify({'status':'success'}), 201
 
 ###############信托产品#########################
+@app.route('/')
 @app.route('/trustProducts', methods=['GET'])
 def get_trust_products():
 	product_list=TrustProduct.query.with_entities(TrustProduct.id, TrustProduct.name, TrustProduct.reason, \

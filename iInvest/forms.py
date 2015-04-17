@@ -7,12 +7,11 @@ class LoginForm(Form):
 	remember_me=BooleanField('remember_me',default=False)
 
 class RegistrationForm(Form):
-	username =TextField('username',[validators.Length(min=4,max=25)])
-	email=TextField('Exmail Address',[validators.Length(min=6,max=35)])
+	phone =TextField('phone',[validators.Length(min=4,max=25)])
 	password=PasswordField('New password', [validators.Required(),validators.EqualTo('confirm',message='Passwords must match')])
 
 	confirm=PasswordField('Repeat Password')
-	accept_tos=BooleanField('I accept the TOS',[validators.Required()])
+	accept_tos=BooleanField('I accept the rules',[validators.Required()])
 
 class ProductForm(Form):
 	name =TextField('product name',[validators.Length(min=4,max=40),validators.Required()])
