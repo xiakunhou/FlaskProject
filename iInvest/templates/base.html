@@ -37,6 +37,12 @@
     </ul>
     {% endif %}
     {% endwith %}
+    {% if session.admin_logged %}
+    <p>welcome {{session.user}}!</p>
+    {% endif %}
+    {% if session.user_logged %}
+    <p>welcome {{session.user}}!</p>
+    {% endif %}
     {% block content %}{% endblock %}
   </body>
 </html>

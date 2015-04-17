@@ -18,7 +18,6 @@ def login():
 
 @app.route('/hello', methods=['POST'])
 def hello():
-	print 'aaa'
 	phone=request.form['phone']
 	password=request.form['password']
 	print phone, password
@@ -26,14 +25,19 @@ def hello():
 	if phone=='admin' and password=='admin':
 		flash('admin logged in!')
 		session['admin_logged']=True
+		session['user']='admin'
 		return redirect(url_for('get_trust_products'))
 	storedPW=User.query.filter_by(phone=phone).first().passwd
 	if bcrypt.check_password_hash(storedPW,password+'ta02%&9!(#HHK_dsKYas;'):
+		session['user_logged']=True
+		session['user']=phone
 		return redirect(url_for('get_trust_products'))
 
 @app.route('/logout')
 def logout():
 	session.pop('admin_logged', None)
+	session.pop('user_logged', None)
+	session.pop('user', None)
 	flash('Logged out!')
 	return redirect(url_for('get_trust_products'))
 
