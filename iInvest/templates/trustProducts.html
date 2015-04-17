@@ -74,6 +74,7 @@
 	<td><input type=text size=30 name="customer_phone"></td>
 	<td>Product ID:</td>
 	<td><input type=text size=30 name="product_id" value={{product.id}}></td>
+	<input type="hidden" name="csrf_token" value="{{csrf_token()}}" />
 	<td><input type=submit value=YUE!></td>
 </form>
 </div>
