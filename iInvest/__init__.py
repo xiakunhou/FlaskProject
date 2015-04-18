@@ -13,4 +13,4 @@ CsrfProtect(app)
 bcrypt=Bcrypt(app)
 db=SQLAlchemy(app)
 
-from iInvest import views, models
+from iInvest import views, models, trustProductView
