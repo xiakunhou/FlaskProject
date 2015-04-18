@@ -60,7 +60,7 @@ def create_trust_preorders():
 	flash('Add preorder successfully!')
 	return redirect(url_for('create_trust_preorders'))
 
-##JSON API
+##JSON API#######################################################
 @app.route('/trustProducts/json', methods=['GET'])
 def json_get_trust_products():
 	product_list=TrustProduct.query.with_entities(TrustProduct.id, TrustProduct.name, TrustProduct.reason, \
