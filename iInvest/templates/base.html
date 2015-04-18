@@ -19,6 +19,7 @@
     }
 
     </script>
+    <script src="{{ url_for('static', filename='ckeditor/ckeditor.js') }}"></script>
   </head>
   <body>
     <div> <a href="/">Home</a></div>
@@ -27,6 +28,7 @@
     <div><a href="/logout">Log Out</a></div>
     <div><a href="/products">Products</a></div>
     <div><a href="/trustProducts">Trust products</a></div>
+    <div><a href="/articles">Articles</a></div>
     <hr>
     {% with messages = get_flashed_messages() %}
     {% if messages %}
