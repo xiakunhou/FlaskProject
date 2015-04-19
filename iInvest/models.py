@@ -214,3 +214,19 @@ class User(db.Model):
 		self.gender=gender
 		self.birthday=birthday
 		self.level=level
+
+class Article(db.Model):
+	id=db.Column(db.Integer, primary_key=True)
+	author=db.Column(db.String(50))
+	content=db.Column(db.String(3000))
+	createTime=db.Column(db.Date)
+	#
+	category=db.Column(db.Integer)
+
+	def __init__(self, content, author=None, createTime=None, category=0):
+		self.author=author
+		self.content=content
+		if createTime is None:
+			createTime=datetime.utcnow().date()
+		self.createTime=createTime
+		self.category=category

@@ -3,13 +3,13 @@
 {% block content %}
 <h1>Add articile：</h1>
 
-<form>
+<form action="{{ url_for('create_article') }}" method=post>
 	<input type="hidden" name="csrf_token" value="{{csrf_token()}}" />
-    <textarea name="editor1" id="editor1" rows="20" cols="80">
+    <textarea name="article" id="editor1" rows="20" cols="80">
                 This is my textarea to be replaced with CKEditor.
     </textarea>
 <script type="text/javascript">
-CKEDITOR.replace('editor1', {
+CKEDITOR.replace('article', {
     filebrowserUploadUrl: '/ckupload',
 });
 </script>
