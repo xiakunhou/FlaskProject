@@ -17,6 +17,7 @@
         });
         
     }
+
     function deleteAssetManagement(productid,id){
         $.ajax({
             url: '/assetManagement/'+productid,
@@ -39,7 +40,6 @@
     <div><a href="/trustProducts">Trust products</a></div>
     <div><a href="/assetManagements">Asset managements</a></div>
     <div><a href="/articles">Articles</a></div>
-    <hr>
     {% with messages = get_flashed_messages() %}
     {% if messages %}
     <ul>
