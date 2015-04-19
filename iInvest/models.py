@@ -232,7 +232,7 @@ class TrustProductPreorder(db.Model):
 	trust_product=db.relationship('TrustProduct', backref=db.backref('trust_preorders', lazy='dynamic'))
 	#associated user, if not registed then a default user 00000000
 	user_id=db.Column(db.Integer, db.ForeignKey('user.id'))
-	user=db.relationship('User',backref=db.backref('users', lazy='dynamic'))
+	user=db.relationship('User',backref=db.backref('trust_preorders', lazy='dynamic'))
 	status=db.Column(db.SmallInteger)#0, solved, 1 not solve, 2 solving, 3 high interest. 
 	createTime=db.Column(db.DateTime)
 	updateTime=db.Column(db.DateTime)
@@ -258,7 +258,7 @@ class AssetManagementPreorder(db.Model):
 	asset_management=db.relationship('AssetManagement', backref=db.backref('asset_preorders', lazy='dynamic'))
 	#associated user, if not registed then a default user 00000000
 	user_id=db.Column(db.Integer, db.ForeignKey('user.id'))
-	user=db.relationship('User',backref=db.backref('users_asset', lazy='dynamic'))
+	user=db.relationship('User',backref=db.backref('asset_preorders', lazy='dynamic'))
 	status=db.Column(db.SmallInteger)#0, solved, 1 not solve, 2 solving, 3 high interest. 
 	createTime=db.Column(db.DateTime)
 	updateTime=db.Column(db.DateTime)

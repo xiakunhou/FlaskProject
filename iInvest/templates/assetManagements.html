@@ -63,7 +63,7 @@
 <h1>资管产品：</h1>
 {% for product in products %}
 <div id="product{{product.id}}">
-<p>名字：<a href="/trustProduct/{{product.id}}">{{product.name}} </a>    (<a href="javascript:deleteAssetManagement('{{product.id}}', '#product{{product.id}}')">Delete </a>)</p>
+<p>名字：<a href="/assetManagement/{{product.id}}">{{product.name}} </a>    (<a href="javascript:deleteAssetManagement('{{product.id}}', '#product{{product.id}}')">Delete </a>)</p>
 <p>投资起点：{{product.threshold}}    投资期限：{{product.dueTime}}
 <p>推荐理由：{{product.reason}}    预期收益：{{product.profitRate}}</b>
 <form action="{{ url_for('create_asset_preorders') }}" method=post class=atd-tag>

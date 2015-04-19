@@ -84,3 +84,13 @@ def json_create_trust_preorders():
 	db.session.add(preorder)
 	db.session.commit()
 	return jsonify({'status':'success'}), 201
+
+@app.route('/trustPreorders/json', methods=['GET'])
+def json_get_trust_preorders():
+	preOrder_list=TrustProductPreorder.query.with_entities(TrustProductPreorder.id, TrustProductPreorder.name, TrustProductPreorder.phone, \
+		TrustProductPreorder.product_id,TrustProductPreorder.createTime,TrustProductPreorder.updateTime).all()
+	ordersList=[]
+	for preorder in preOrder_list:
+		ordersList.append({'id':preorder[0],'nick_name':preorder[1],'customer_phone':preorder[2],'trust_id':preorder[3],\
+			'createTime':preorder[4].strftime('%Y/%m/%d-%H:%M:%S')})
+	return json.dumps(ordersList, ensure_ascii=False).encode('utf8')
