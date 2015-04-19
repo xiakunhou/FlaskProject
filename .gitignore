@@ -1,2 +1,5 @@
 *.pyc 
 *pyc
+*.migrate.py
+*.txt
+*.db

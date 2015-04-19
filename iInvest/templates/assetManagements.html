@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if session.admin_logged %}
+<h1>添加产品：</h1>
+<form action="{{ url_for('create_asset_management') }}" method=post class=atd-tag>
+<table>
+	<tr>
+	<td>名称:</td>
+	<td><input type=text size=30 name=name></td>
+	<td>状态:(small int)</td>
+	<td><input type=text size=30 name=status></td>
+	</tr>
+	<tr>
+	<td>推荐理由:</td>
+	<td><input type=text size=30 name=reason></td>
+	<td>简要介绍:</td>
+	<td><input type=text size=30 name=shortDesc></td>
+	</tr>
+	<tr>
+	<td>预期收益:(float)</td>
+	<td><input type=text size=30 name=profitRate></td>
+	<td>收益说明:</td>
+	<td><input type=text size=30 name=profitDesc></td>
+	</tr>
+	<tr>
+	<td>收益类型:</td>
+	<td><input type=text size=30 name=profitType></td>
+	<td>收益分配:</td>
+	<td><input type=text size=30 name=profitClose></td>
+	</tr>
+	<tr>
+	<td>管理机构:</td>
+	<td><input type=text size=30 name=organization></td>
+	<td>产品期限:(int)</td>
+	<td><input type=text size=30 name=dueTime>单位（月）</td>
+	</tr>
+	<tr>
+	<td>投资起点:(int)</td>
+	<td><input type=text size=30 name=threshold></td>
+	<td>发行规模:(int)</td>
+	<td><input type=text size=30 name=total></td>
+	</tr>
+	<tr>
+	<td>投资领域:</td>
+	<td><input type=text size=30 name=investArea></td>
+	<td>投资方式:</td>
+	<td><input type=text size=30 name=investType></td>
+	</tr>
+	<tr>
+	<td>资金用途:</td>
+	<td><textarea rows='4' cols='50' name=detailDesc></textarea></td>
+	<td>风控措施:</td>
+	<td><textarea rows='4' cols='50' name=riskControl></textarea></td>
+	</tr>
+	<tr>
+	<input type="hidden" name="csrf_token" value="{{csrf_token()}}" />
+	<td><input type=submit value=Atd product></td>
+</table>
+</form>
+{% endif %}
+
+<h1>资管产品：</h1>
+{% for product in products %}
+<div id="product{{product.id}}">
+<p>名字：<a href="/trustProduct/{{product.id}}">{{product.name}} </a>    (<a href="javascript:deleteAssetManagement('{{product.id}}', '#product{{product.id}}')">Delete </a>)</p>
+<p>投资起点：{{product.threshold}}    投资期限：{{product.dueTime}}
+<p>推荐理由：{{product.reason}}    预期收益：{{product.profitRate}}</b>
+<form action="{{ url_for('create_asset_preorders') }}" method=post class=atd-tag>
+<d1>
+	<td>Name:</td>
+	<td><input type=text size=30 name="customer_name"></td>
+	<td>Phone Number:</td>
+	<td><input type=text size=30 name="customer_phone"></td>
+	<td>Product ID:</td>
+	<td><input type=text size=30 name="product_id" value={{product.id}}></td>
+	<input type="hidden" name="csrf_token" value="{{csrf_token()}}" />
+	<td><input type=submit value=YUE!></td>
+</form>
+</div>
+
+{% endfor %}
+
+{% endblock %}
+
