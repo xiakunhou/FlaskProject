@@ -36,8 +36,8 @@ def create_asset_management():
 
 @app.route('/assetManagement/<id>', methods=['GET'])
 def asset_management(id):
-	product=TrustProduct.query.filter_by(id=id).first()
-	return render_template('assetManagements.html', product=product)
+	product=AssetManagement.query.filter_by(id=id).first()
+	return render_template('assetManagement.html', product=product)
 
 
 @app.route('/assetManagement/<id>', methods=['DELETE'])
@@ -88,10 +88,10 @@ def json_create_asset_preorders():
 
 @app.route('/assetPreorders/json', methods=['GET'])
 def json_get_asset_preorders():
-	product_list=AssetManagementPreorder.query.with_entities(AssetManagementPreorder.id, AssetManagementPreorder.name, AssetManagementPreorder.phone, \
+	preorder_list=AssetManagementPreorder.query.with_entities(AssetManagementPreorder.id, AssetManagementPreorder.name, AssetManagementPreorder.phone, \
 		AssetManagementPreorder.product_id,AssetManagementPreorder.createTime,AssetManagementPreorder.updateTime).all()
-	productsList=[]
-	for product in product_list:
-		productsList.append({'id':product[0],'nick_name':product[1],'customer_phone':product[2],'asset_id':product[3]})
-	return json.dumps(productsList, ensure_ascii=False).encode('utf8')
+	ordersList=[]
+	for preorder in preorder_list:
+		ordersList.append({'id':preorder[0],'nick_name':preorder[1],'customer_phone':preorder[2],'asset_id':preorder[3],'createTime':preorder[4].strftime('%Y/%m/%d-%H:%M:%S')})
+	return json.dumps(ordersList, ensure_ascii=False).encode('utf8')
 

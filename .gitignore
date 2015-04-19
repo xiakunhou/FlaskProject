@@ -1,4 +1,5 @@
-*.pyc 
+*.pyc
+db_repository/versions 
 *pyc
 *.migrate.py
 *.txt
