@@ -4,14 +4,15 @@
 <h1>Add articile：</h1>
 
 <form>
+	<input type="hidden" name="csrf_token" value="{{csrf_token()}}" />
     <textarea name="editor1" id="editor1" rows="20" cols="80">
                 This is my textarea to be replaced with CKEditor.
     </textarea>
-    <script>
-    // 用CKEditor替换<textarea id="editor1">
-    // 使用默认配置
-    CKEDITOR.replace('editor1');
-    </script>
+<script type="text/javascript">
+CKEDITOR.replace('editor1', {
+    filebrowserUploadUrl: '/ckupload',
+});
+</script>
 </form>
 
 {% endblock %}

@@ -21,6 +21,7 @@ def get_trust_products():
 @app.route('/trustProducts', methods=['POST'])
 def create_trust_product():
 	form=TrustProductForm(request.form)
+	print request.form['csrf_token']
 	if not form.validate():
 		return make_response(jsonify({'error': form.errors}), 400)
 	p=TrustProduct(name=form.name.data, reason=form.reason.data, threshold=form.threshold.data, dueTime=form.dueTime.data, \
