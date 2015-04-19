@@ -9,6 +9,8 @@ Then it will create a $DATABASE_URL variable, add it to config.py. Prepare requi
 Then create the db.
 
     $ heroku run init
+    $ heroku run migrate
+    $ heroku run upgrade
     
 run from console
 -------
