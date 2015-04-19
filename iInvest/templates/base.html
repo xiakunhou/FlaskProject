@@ -17,6 +17,15 @@
         });
         
     }
+    function deleteAssetManagement(productid,id){
+        $.ajax({
+            url: '/assetManagement/'+productid,
+            type: 'DELETE',
+            success: function(result){
+                $(id).hide();
+            }
+        });
+    }
 
     </script>
     <script src="{{ url_for('static', filename='ckeditor/ckeditor.js') }}"></script>
@@ -28,6 +37,7 @@
     <div><a href="/logout">Log Out</a></div>
     <div><a href="/products">Products</a></div>
     <div><a href="/trustProducts">Trust products</a></div>
+    <div><a href="/assetManagements">Asset managements</a></div>
     <div><a href="/articles">Articles</a></div>
     <hr>
     {% with messages = get_flashed_messages() %}

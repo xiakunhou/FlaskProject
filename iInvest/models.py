@@ -145,6 +145,84 @@ class TrustProduct(db.Model):
 			'riskControl': prod.riskControl
 		}
 
+
+#资管产品
+class AssetManagement(db.Model):
+	id=db.Column(db.Integer, primary_key=True)
+	name=db.Column(db.String(20))
+	#投资理由
+	reason=db.Column(db.String(50))
+	#投资起点
+	threshold=db.Column(db.Integer)
+	#产品期限，单位：月
+	dueTime=db.Column(db.Integer)
+	shortDesc=db.Column(db.String(200))
+	#预期收益
+	profitRate=db.Column(db.Float)
+	#收益类型
+	profitType=db.Column(db.String(50))
+	#收益分配
+	profitClose=db.Column(db.String(50))
+	#收益说明
+	profitDesc=db.Column(db.String(300))
+	#状态，1:募集中，0，售完
+	status=db.Column(db.SmallInteger)
+	#管理机构
+	organization=db.Column(db.String(50))
+	#投资方式
+	investType=db.Column(db.String(50))
+	#投资领域
+	investArea=db.Column(db.String(50))
+	#发行规模
+	total=db.Column(db.Integer)
+	#资金用途
+	detailDesc=db.Column(db.String(500))
+	#风险控制
+	riskControl=db.Column(db.String(500))
+	
+	def __init__(self, name, reason, threshold, dueTime, shortDesc, profitRate, profitType, profitClose, profitDesc, status,organization,investType,investArea,total,detailDesc,riskControl):
+		self.name=name
+		self.reason=reason
+		self.threshold=threshold
+		self.dueTime=dueTime
+		self.shortDesc=shortDesc
+		self.profitRate=profitRate
+		self.profitType=profitType
+		self.profitDesc=profitDesc
+		self.status=status
+		self.organization=organization
+		self.investType=investType
+		self.profitClose=profitClose
+		self.investArea=investArea
+		self.total=total
+		self.detailDesc=detailDesc
+		self.riskControl=riskControl
+	
+	def __repr__(self):
+		return 'Trust Product is %r' %(self.name)
+
+	def product2dict(prod):
+		return {
+			'id': prod.id,
+			'name': prod.name,
+			'reason':prod.reason,
+			'threshold': prod.threshold,
+			'dueTime': prod.dueTime,
+			'shortDesc': prod.shortDesc,
+			'profitRate': prod.profitRate,
+			'profitType': prod.profitType,
+			'profitDesc': prod.profitDesc,
+			'profitClose': prod.profitClose,
+			'status': prod.status,
+			'organization': prod.organization,
+			'investType': prod.investType,
+			'investArea': prod.investArea,
+			'total': prod.total,
+			'detailDesc': prod.detailDesc,
+			'riskControl': prod.riskControl
+		}
+
+
 class TrustProductPreorder(db.Model):
 	id=db.Column(db.Integer, primary_key=True)
 	#user nick name
@@ -155,6 +233,32 @@ class TrustProductPreorder(db.Model):
 	#associated user, if not registed then a default user 00000000
 	user_id=db.Column(db.Integer, db.ForeignKey('user.id'))
 	user=db.relationship('User',backref=db.backref('users', lazy='dynamic'))
+	status=db.Column(db.SmallInteger)#0, solved, 1 not solve, 2 solving, 3 high interest. 
+	createTime=db.Column(db.DateTime)
+	updateTime=db.Column(db.DateTime)
+
+	def __init__(self, name, phone, product_id, createTime=None,updateTime=None):
+		self.name=name
+		self.phone=phone
+		self.product_id=product_id
+		self.status=1
+		if createTime is None:
+			createTime=datetime.utcnow()
+		self.createTime=createTime
+		if updateTime is None:
+			updateTime=datetime.utcnow()
+		self.updateTime=updateTime
+
+class AssetManagementPreorder(db.Model):
+	id=db.Column(db.Integer, primary_key=True)
+	#user nick name
+	name=db.Column(db.String(45))
+	phone=db.Column(db.Integer)
+	product_id=db.Column(db.Integer, db.ForeignKey('asset_management.id'))
+	asset_management=db.relationship('AssetManagement', backref=db.backref('asset_preorders', lazy='dynamic'))
+	#associated user, if not registed then a default user 00000000
+	user_id=db.Column(db.Integer, db.ForeignKey('user.id'))
+	user=db.relationship('User',backref=db.backref('users_asset', lazy='dynamic'))
 	status=db.Column(db.SmallInteger)#0, solved, 1 not solve, 2 solving, 3 high interest. 
 	createTime=db.Column(db.DateTime)
 	updateTime=db.Column(db.DateTime)
