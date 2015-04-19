@@ -1,9 +1,19 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Add articile：</h1>
 
-<form action="{{ url_for('create_article') }}" method=post>
+<h1>Articles：</h1>
+{% for article in articles %}
+<p>{{article.id}}</p>
+
+<div name={{article.id}}>
+{{ article.content }}
+</div>
+
+{% endfor %}
+
+<h1>Add articile：</h1>
+<form action="{{ url_for('articles') }}" method=post>
 	<input type="hidden" name="csrf_token" value="{{csrf_token()}}" />
     <textarea name="article" id="editor1" rows="20" cols="80">
                 This is my textarea to be replaced with CKEditor.

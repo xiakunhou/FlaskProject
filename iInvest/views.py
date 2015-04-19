@@ -124,10 +124,6 @@ def json_create_preorders():
     db.session.commit()
     return jsonify({'status':'success'}), 201
 
-@app.route('/articles', methods=['GET'])
-def articles():
-    return render_template('articles.html')
-
 
 def gen_rnd_filename():
     filename_prefix = datetime.datetime.now().strftime('%Y%m%d%H%M%S')

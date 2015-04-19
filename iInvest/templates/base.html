@@ -17,7 +17,6 @@
         });
         
     }
-
     </script>
     <script src="{{ url_for('static', filename='ckeditor/ckeditor.js') }}"></script>
   </head>
@@ -29,7 +28,6 @@
     <div><a href="/products">Products</a></div>
     <div><a href="/trustProducts">Trust products</a></div>
     <div><a href="/articles">Articles</a></div>
-    <hr>
     {% with messages = get_flashed_messages() %}
     {% if messages %}
     <ul>
