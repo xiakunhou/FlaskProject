@@ -1,5 +1,5 @@
 #coding:utf-8
-from iInvest import app, db, bcrypt
+from iInvest import app, db, bcrypt, csrf
 from flask import render_template,flash,redirect, request, abort, url_for, session, jsonify, make_response
 from forms import LoginForm, RegistrationForm, ProductForm, TrustProductForm
 import datetime
@@ -76,6 +76,7 @@ def json_trust_product(id):
 	product=TrustProduct.query.filter_by(id=id).first()
 	return json.dumps(product, default=TrustProduct.product2dict, ensure_ascii=False).encode('utf8')
 
+@csrf.exempt
 @app.route('/trustPreorders/json', methods=['POST'])
 def json_create_trust_preorders():
 	if not request.json or not 'product_id' in request.json or not 'customer_name' in request.json or not 'customer_phone' in request.json:

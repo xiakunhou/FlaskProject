@@ -77,6 +77,7 @@ def json_asset_management(id):
 	product=AssetManagement.query.filter_by(id=id).first()
 	return json.dumps(product, default=AssetManagement.product2dict, ensure_ascii=False).encode('utf8')
 
+@csrf.exempt
 @app.route('/assetPreorders/json', methods=['POST'])
 def json_create_asset_preorders():
 	if not request.json or not 'product_id' in request.json or not 'customer_name' in request.json or not 'customer_phone' in request.json:
