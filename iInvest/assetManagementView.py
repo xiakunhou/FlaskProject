@@ -1,5 +1,5 @@
 #coding:utf-8
-from iInvest import app, db, bcrypt
+from iInvest import app, db, bcrypt, csrf
 from flask import render_template,flash,redirect, request, abort, url_for, session, jsonify, make_response
 from forms import LoginForm, RegistrationForm, ProductForm, TrustProductForm, AssetManagementForm
 import datetime
