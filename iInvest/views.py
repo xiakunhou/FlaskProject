@@ -11,9 +11,9 @@ import random
 import datetime
 
 
-@app.errorhandler(400)
+@app.errorhandler(404)
 def bad_request(error):
-    return make_response(jsonify({'error':'Bad request1'}), 400)
+    return render_template('404.html'), 404
 
 @app.route('/login')
 def login():
