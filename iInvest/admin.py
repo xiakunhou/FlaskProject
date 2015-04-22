@@ -122,22 +122,6 @@ class MyAdminIndexView(admin.AdminIndexView):
         return redirect(url_for('.index'))
 
 
-# Flask views
-@app.route('/')
-def index():
-	return '<a href="/admin/">Click me to get to Admin!</a>'
- #   return render_template('index.html')
-
-
-# Initialize flask-login
-init_login()
-
-# Create admin
-admin = admin.Admin(app, 'iInvest:', index_view=MyAdminIndexView(), base_template='my_master.html')
-
-# Add view
-admin.add_view(MyModelView(User, db.session))
-
 
 # Customized User model admin
 class UserAdmin(sqla.ModelView):
@@ -147,11 +131,7 @@ class UserAdmin(sqla.ModelView):
         return login.current_user.is_authenticated()
     column_display_pk = True
     
-	#form_args = dict(
-	#		uname = dict(label='name',validators=[validators.required()]),
-	#		phones = dict(label='phone',validators=[validators.required()])
-
-	#	)
+    create_template = 'create_user.html'
     
 
 class AssetAdmin(sqla.ModelView):
@@ -162,6 +142,8 @@ class AssetAdmin(sqla.ModelView):
     form_args = dict(
                     reason=dict(validators=[validators.required()])
                 )
+
+
     def create_form(self):
         form = super(AssetAdmin,self).create_form()
         return form
@@ -174,34 +156,14 @@ class AssetAdmin(sqla.ModelView):
 
 	
 
-    
-
-class AssetView(sqla.ModelView):
-
-    def is_accessible(self):
-        return login.current_user.is_authenticated()
-	column_list = ('name','reason','threshold')
-	column_sortable_list = ('name')
-
-
-
-	#form = AssetManagementForm
-    
-
-	def create_form(self):
-		form = super(AssetView,self).create_form()
-		return form
-
 
 class PreorderAdmin(sqla.ModelView):
 
     def is_accessible(self):
         return login.current_user.is_authenticated()
 	column_display_pk = True
-	#column_list = (AssetManagement.name,'phone',User.name)
 	column_sortable_list=(('asset_management',AssetManagement.name),'phone',('user',User.name))
-	#column_searchable_list = ('name')
-	#column_filters = ('')
+    #need test
 	form_ajax_refs = {
         'asset_management': {
             'fields': (AssetManagement.name,)
@@ -212,9 +174,22 @@ class PreorderAdmin(sqla.ModelView):
     }
 
     
+# Flask views
+@app.route('/')
+def index():
+    return '<a href="/admin/">Click me to get to Admin!</a>'
+ #   return render_template('index.html')
 
 
-# Add views
+# Initialize flask-login
+init_login()
+
+# Create admin
+admin = admin.Admin(app, 'iInvest:', index_view=MyAdminIndexView(), base_template='my_master.html')
+
+# Add view
+admin.add_view(MyModelView(User, db.session))
+
 #admin.add_view(UserAdmin(User, db.session))
 admin.add_view(AssetAdmin(AssetManagement, db.session))
 admin.add_view(PreorderAdmin(AssetManagementPreorder, db.session))

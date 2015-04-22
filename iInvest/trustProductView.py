@@ -8,7 +8,7 @@ import json
 import flask
 
 ###############信托产品#########################
-#@app.route('/')
+@app.route('/index')
 @app.route('/trustProducts', methods=['GET'])
 def get_trust_products():
 	product_list=TrustProduct.query.with_entities(TrustProduct.id, TrustProduct.name, TrustProduct.reason, \
