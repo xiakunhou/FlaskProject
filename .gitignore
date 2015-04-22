@@ -1,5 +1,5 @@
 *.pyc
-db_repository/versions 
+db_repository
 *pyc
 *.migrate.py
 *.txt

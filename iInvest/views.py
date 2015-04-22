@@ -11,9 +11,9 @@ import random
 import datetime
 
 
-@app.errorhandler(400)
+@app.errorhandler(404)
 def bad_request(error):
-    return make_response(jsonify({'error':'Bad request'}), 400)
+    return render_template('404.html'), 404
 
 @app.route('/login')
 def login():
@@ -29,11 +29,13 @@ def hello():
         flash('admin logged in!')
         session['admin_logged']=True
         session['user']='admin'
+        session.permanent=False
         return redirect(url_for('get_trust_products'))
     storedPW=User.query.filter_by(phone=phone).first().passwd
     if bcrypt.check_password_hash(storedPW,password+'ta02%&9!(#HHK_dsKYas;'):
         session['user_logged']=True
         session['user']=phone
+        session.permanent=False
         return redirect(url_for('get_trust_products'))
 
 @app.route('/logout')
