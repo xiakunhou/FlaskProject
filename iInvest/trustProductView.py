@@ -16,7 +16,6 @@ def token():
 	token=generate_csrf(time_limit=3600)
 	return jsonify({'token':token}), 201
 
-@app.route('/')
 @app.route('/index')
 @app.route('/trustProducts', methods=['GET'])
 def get_trust_products():
