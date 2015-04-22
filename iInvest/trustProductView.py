@@ -11,7 +11,7 @@ import flask
 ###############信托产品#########################
 @app.route('/token')
 def token():
-	token=generate_csrf(time_limit=10)
+	token=generate_csrf(time_limit=3600)
 	return jsonify({'token':token}), 201
 
 @app.route('/')
