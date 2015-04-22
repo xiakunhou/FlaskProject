@@ -149,7 +149,7 @@ class TrustProduct(db.Model):
 #资管产品
 class AssetManagement(db.Model):
 	id=db.Column(db.Integer, primary_key=True)
-	name=db.Column(db.String(20))
+	name=db.Column(db.String(20),nullable=False)
 	#投资理由
 	reason=db.Column(db.String(50))
 	#投资起点
@@ -179,8 +179,9 @@ class AssetManagement(db.Model):
 	detailDesc=db.Column(db.String(500))
 	#风险控制
 	riskControl=db.Column(db.String(500))
-	
-	def __init__(self, name, reason, threshold, dueTime, shortDesc, profitRate, profitType, profitClose, profitDesc, status,organization,investType,investArea,total,detailDesc,riskControl):
+'''	
+	def __init__(self, name, reason=None, threshold=None, dueTime=None, shortDesc=None, profitRate=None, profitType=None, \
+		profitClose=None, profitDesc=None, status=None,organization=None,investType=None,investArea=None,total=None,\
 		self.name=name
 		self.reason=reason
 		self.threshold=threshold
@@ -197,30 +198,9 @@ class AssetManagement(db.Model):
 		self.total=total
 		self.detailDesc=detailDesc
 		self.riskControl=riskControl
-	
-	def __repr__(self):
-		return 'Trust Product is %r' %(self.name)
+'''
 
-	def product2dict(prod):
-		return {
-			'id': prod.id,
-			'name': prod.name,
-			'reason':prod.reason,
-			'threshold': prod.threshold,
-			'dueTime': prod.dueTime,
-			'shortDesc': prod.shortDesc,
-			'profitRate': prod.profitRate,
-			'profitType': prod.profitType,
-			'profitDesc': prod.profitDesc,
-			'profitClose': prod.profitClose,
-			'status': prod.status,
-			'organization': prod.organization,
-			'investType': prod.investType,
-			'investArea': prod.investArea,
-			'total': prod.total,
-			'detailDesc': prod.detailDesc,
-			'riskControl': prod.riskControl
-		}
+	
 
 
 class TrustProductPreorder(db.Model):
@@ -252,8 +232,8 @@ class TrustProductPreorder(db.Model):
 class AssetManagementPreorder(db.Model):
 	id=db.Column(db.Integer, primary_key=True)
 	#user nick name
-	name=db.Column(db.String(45))
-	phone=db.Column(db.Integer)
+	name=db.Column(db.String(45),nullable=False)
+	phone=db.Column(db.Integer,nullable=False)
 	product_id=db.Column(db.Integer, db.ForeignKey('asset_management.id'))
 	asset_management=db.relationship('AssetManagement', backref=db.backref('asset_preorders', lazy='dynamic'))
 	#associated user, if not registed then a default user 00000000
@@ -263,6 +243,30 @@ class AssetManagementPreorder(db.Model):
 	createTime=db.Column(db.DateTime)
 	updateTime=db.Column(db.DateTime)
 
+	def __repr__(self):
+		return 'AssetManagement is %r' %(self.name)
+
+	def product2dict(prod):
+		return {
+			'id': prod.id,
+			'name': prod.name,
+			'reason':prod.reason,
+			'threshold': prod.threshold,
+			'dueTime': prod.dueTime,
+			'shortDesc': prod.shortDesc,
+			'profitRate': prod.profitRate,
+			'profitType': prod.profitType,
+			'profitDesc': prod.profitDesc,
+			'profitClose': prod.profitClose,
+			'status': prod.status,
+			'organization': prod.organization,
+			'investType': prod.investType,
+			'investArea': prod.investArea,
+			'total': prod.total,
+			'detailDesc': prod.detailDesc,
+			'riskControl': prod.riskControl
+		}
+'''
 	def __init__(self, name, phone, product_id, createTime=None,updateTime=None):
 		self.name=name
 		self.phone=phone
@@ -274,7 +278,7 @@ class AssetManagementPreorder(db.Model):
 		if updateTime is None:
 			updateTime=datetime.utcnow()
 		self.updateTime=updateTime
-
+'''
 
 class Preorder(db.Model):
 	id=db.Column(db.Integer, primary_key=True)
@@ -301,14 +305,29 @@ class Preorder(db.Model):
 class User(db.Model):
 	id=db.Column(db.Integer, primary_key=True)
 	phone=db.Column(db.Integer)
-	passwd=db.Column(db.String(200))
+	passwd=db.Column(db.String(200),nullable=False)
 	email=db.Column(db.String(50))
-	name=db.Column(db.String(45))
+	name=db.Column(db.String(45),unique=True,nullable=False)
 	idNumber=db.Column(db.String(40))
 	gender=db.Column(db.SmallInteger)
 	birthday=db.Column(db.Date)
 	level=db.Column(db.Integer)
 
+	def is_authenticated(self):
+		return True
+	
+	def is_active(self):
+		return True
+	
+	def is_anonymous(self):
+		return True
+
+	def get_id(self):
+		return self.id
+
+	def __unicode__(self):
+		return self.name
+'''
 	def __init__(self, phone, passwd, email=None,name=None,idNumber=None, gender=1, birthday=None, level=0):
 		self.phone=phone
 		self.passwd=passwd
@@ -318,6 +337,11 @@ class User(db.Model):
 		self.gender=gender
 		self.birthday=birthday
 		self.level=level
+		# Flask-Login integration
+'''
+	
+
+
 
 class Article(db.Model):
 	id=db.Column(db.Integer, primary_key=True)
