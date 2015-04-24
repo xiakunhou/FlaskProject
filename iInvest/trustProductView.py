@@ -2,9 +2,9 @@
 from iInvest import app, db, bcrypt, csrf
 from flask_wtf.csrf import generate_csrf
 from flask import render_template,flash,redirect, request, abort, url_for, session, jsonify, make_response
-from forms import LoginForm, RegistrationForm, ProductForm, TrustProductForm
+from forms import LoginForm, RegistrationForm, TrustProductForm
 import datetime
-from models import Product, Preorder, TrustProduct, TrustProductPreorder, User
+from models import TrustProduct, TrustProductPreorder, User
 import json
 import flask
 

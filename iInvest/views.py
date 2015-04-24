@@ -1,9 +1,9 @@
 #coding:utf-8
 from iInvest import app, db, bcrypt, csrf
 from flask import render_template,flash,redirect, request, abort, url_for, session, jsonify, make_response
-from forms import LoginForm, RegistrationForm, ProductForm, TrustProductForm
+from forms import LoginForm, RegistrationForm, TrustProductForm
 import datetime
-from models import Product, Preorder, TrustProduct, TrustProductPreorder, User
+from models import TrustProduct, TrustProductPreorder, User
 import json
 import flask
 import os
@@ -63,68 +63,6 @@ def register():
         flash('Thanks for registering')
         return redirect(url_for('login'))
     return render_template('register.html', form=form)
-
-@app.route('/products', methods=['GET'])
-def get_products():
-    products=Product.query.all()
-    if 'json'!=request.args.get('format'):
-        return render_template('products.html',products=products)
-    else:
-        productsList=[]
-        for product in products:
-            productsList.append(Product.product2dict(product))
-        return json.dumps(productsList, ensure_ascii=False).encode('utf8')
-
-@app.route('/products', methods=['POST'])
-def create_product():
-    form=ProductForm(request.form)
-    p=Product(name=form.name.data, threshold=form.threshold.data, dueTime=form.dueTime.data, shortDesc=form.shortDesc.data, profitRate=form.profitRate.data, profitType=form.profitType.data, profitDesc=form.profitDesc.data, status=form.status.data,organization=form.organization.data,investType=form.investType.data,investArea=form.investArea.data,total=form.total.data,detailDesc=form.detailDesc.data,riskControl=form.riskControl.data)
-    db.session.add(p)
-    db.session.commit()
-    flash('Add product successfully!')
-    return redirect(url_for('create_product'))
-
-@app.route('/product/<id>')
-def product(id):
-    product=Product.query.filter_by(id=id).first()
-    #if product == None:
-    #   flash('Product ' + id + ' not found.')
-    #    return redirect(url_for('index'))
-    if 'json'!=request.args.get('format'):
-        return render_template('product.html', product=product)
-    else:
-        return json.dumps(product, default=Product.product2dict, ensure_ascii=False).encode('utf8')
-
-@app.route('/preorders/', methods=['GET'])
-def get_preorders():
-    preorders=Preorder.query.all()
-    return render_template('preorders.html', preorders=preorders)
-
-@app.route('/preorders/', methods=['POST'])
-def create_preorders():
-    if not request.form or not 'product_id' in request.form or not 'customer_name' in request.form or not 'customer_phone' in request.form:
-        abort(400)
-    preorder=Preorder(request.form['customer_name'],request.form['customer_phone'],request.form['product_id'])
-    db.session.add(preorder)
-    db.session.commit()
-    flash('Add preorder successfully!')
-    return redirect(url_for('create_preorders'))
-#@csrt.exempt
-@app.route('/preorders/json', methods=['POST'])
-def json_create_preorders():
-    #print request
-    print 'test'
-    #print request.json
-    print request.mimetype
-    print request.json
-    print 'aaa',request.get_json(force=True)
-    print request.json['product_id']
-    if not request.json or not 'product_id' in request.json or not 'customer_name' in request.json or not 'customer_phone' in request.json:
-        abort(400)
-    preorder=Preorder(request.json['customer_name'],request.json['customer_phone'],request.json['product_id'])
-    db.session.add(preorder)
-    db.session.commit()
-    return jsonify({'status':'success'}), 201
 
 
 def gen_rnd_filename():

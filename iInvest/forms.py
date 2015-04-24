@@ -13,22 +13,6 @@ class RegistrationForm(Form):
 	confirm=PasswordField('Repeat Password')
 	accept_tos=BooleanField('I accept the rules',[validators.Required()])
 
-class ProductForm(Form):
-	name =TextField('product name',[validators.Length(min=4,max=40),validators.Required()])
-	threshold =TextField('threshold',[validators.Length(min=4,max=40)])
-	dueTime =TextField('dueTime',[validators.Length(min=4,max=40)])
-	shortDesc =TextField('shortDesc',[validators.Length(min=4,max=40)])
-	profitRate =TextField('profitRate',[validators.Length(min=4,max=40)])
-	profitType =TextField('profitType',[validators.Length(min=4,max=40)])
-	profitDesc =TextField('profitDesc',[validators.Length(min=4,max=40)])
-	status =TextField('status',[validators.Length(min=4,max=40)])
-	organization =TextField('organization',[validators.Length(min=4,max=40)])
-	investType =TextField('investType',[validators.Length(min=4,max=40)])
-	investArea =TextField('investArea',[validators.Length(min=4,max=40)])
-	total =TextField('total',[validators.Length(min=4,max=40)])
-	detailDesc =TextField('detailDesc',[validators.Length(min=4,max=40)])
-	riskControl =TextField('riskControl',[validators.Length(min=4,max=40)])
-
 class TrustProductForm(Form):
 	name =StringField('product name',[validators.Length(min=1,max=20),validators.Required()])
 	reason =StringField('reason',[validators.Length(min=1,max=20),validators.Required()])
