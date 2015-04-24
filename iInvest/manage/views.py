@@ -24,12 +24,11 @@ def init_login():
     def load_user(user_id):
         return db.session.query(User).get(user_id)
 
-
-# Create customized model view class
-class MyModelView(sqla.ModelView):
-    def is_accessible(self):
-        return login.current_user.is_authenticated()
-
+# Flask views
+@app.route('/')
+def index():
+    return '<a href="/admin/">Click me to get to Admin!</a>'
+ #   return render_template('index.html')
 
 # Create customized index view class that handles login & registration
 class MyAdminIndexView(admin.AdminIndexView):
@@ -82,9 +81,16 @@ class MyAdminIndexView(admin.AdminIndexView):
     def logout_view(self):
         login.logout_user()
         return redirect(url_for('.index'))
-    
 
-class AssetAdmin(sqla.ModelView):
+# Create customized model view class
+class UserManageView(sqla.ModelView):
+    can_create = False
+    
+    def is_accessible(self):
+        return login.current_user.is_authenticated()
+  
+
+class AssetManageView(sqla.ModelView):
 
     column_list = ('name','reason','threshold')
     column_sortable_list = ('name','reason')
@@ -95,7 +101,7 @@ class AssetAdmin(sqla.ModelView):
 
 
     def create_form(self):
-        form = super(AssetAdmin,self).create_form()
+        form = super(AssetManageView,self).create_form()
         return form
 
     def is_accessible(self):
@@ -103,7 +109,7 @@ class AssetAdmin(sqla.ModelView):
     column_display_pk = True
 
 
-class PreorderAdmin(sqla.ModelView):
+class PreorderManageView(sqla.ModelView):
 
     def is_accessible(self):
         return login.current_user.is_authenticated()
@@ -119,12 +125,6 @@ class PreorderAdmin(sqla.ModelView):
         }
     }
 
-    
-# Flask views
-@app.route('/')
-def index():
-    return '<a href="/admin/">Click me to get to Admin!</a>'
- #   return render_template('index.html')
 
 
 # Initialize flask-login
@@ -132,11 +132,10 @@ init_login()
 
 # Create admin
 admin = admin.Admin(app, 'iInvest:', index_view=MyAdminIndexView(), base_template='my_master.html')
-# Add view
-admin.add_view(MyModelView(User, db.session))
 
-#admin.add_view(UserAdmin(User, db.session))
-admin.add_view(AssetAdmin(AssetManagement, db.session))
-admin.add_view(PreorderAdmin(AssetManagementPreorder, db.session))
+# Add view
+admin.add_view(UserManageView(User, db.session))
+admin.add_view(AssetManageView(AssetManagement, db.session))
+admin.add_view(PreorderManageView(AssetManagementPreorder, db.session))
 
 
