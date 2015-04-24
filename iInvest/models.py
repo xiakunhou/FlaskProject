@@ -102,25 +102,7 @@ class TrustProduct(db.Model):
 	detailDesc=db.Column(db.String(500))
 	#风险控制
 	riskControl=db.Column(db.String(500))
-	
-	def __init__(self, name, reason, threshold, dueTime, shortDesc, profitRate, profitType, profitClose, profitDesc, status,organization,investType,investArea,total,detailDesc,riskControl):
-		self.name=name
-		self.reason=reason
-		self.threshold=threshold
-		self.dueTime=dueTime
-		self.shortDesc=shortDesc
-		self.profitRate=profitRate
-		self.profitType=profitType
-		self.profitDesc=profitDesc
-		self.status=status
-		self.organization=organization
-		self.investType=investType
-		self.profitClose=profitClose
-		self.investArea=investArea
-		self.total=total
-		self.detailDesc=detailDesc
-		self.riskControl=riskControl
-	
+
 	def __repr__(self):
 		return 'Trust Product is %r' %(self.name)
 
@@ -144,6 +126,27 @@ class TrustProduct(db.Model):
 			'detailDesc': prod.detailDesc,
 			'riskControl': prod.riskControl
 		}
+	
+''' 
+	def __init__(self, name, reason, threshold, dueTime, shortDesc, profitRate, profitType, profitClose, profitDesc, status,organization,investType,investArea,total,detailDesc,riskControl):
+		self.name=name
+		self.reason=reason
+		self.threshold=threshold
+		self.dueTime=dueTime
+		self.shortDesc=shortDesc
+		self.profitRate=profitRate
+		self.profitType=profitType
+		self.profitDesc=profitDesc
+		self.status=status
+		self.organization=organization
+		self.investType=investType
+		self.profitClose=profitClose
+		self.investArea=investArea
+		self.total=total
+		self.detailDesc=detailDesc
+		self.riskControl=riskControl
+'''
+	
 
 
 #资管产品
@@ -179,7 +182,7 @@ class AssetManagement(db.Model):
 	detailDesc=db.Column(db.String(500))
 	#风险控制
 	riskControl=db.Column(db.String(500))
-'''	
+''' 
 	def __init__(self, name, reason=None, threshold=None, dueTime=None, shortDesc=None, profitRate=None, profitType=None, \
 		profitClose=None, profitDesc=None, status=None,organization=None,investType=None,investArea=None,total=None,\
 		self.name=name
@@ -216,7 +219,7 @@ class TrustProductPreorder(db.Model):
 	status=db.Column(db.SmallInteger)#0, solved, 1 not solve, 2 solving, 3 high interest. 
 	createTime=db.Column(db.DateTime)
 	updateTime=db.Column(db.DateTime)
-
+'''
 	def __init__(self, name, phone, product_id, createTime=None,updateTime=None):
 		self.name=name
 		self.phone=phone
@@ -228,7 +231,7 @@ class TrustProductPreorder(db.Model):
 		if updateTime is None:
 			updateTime=datetime.utcnow()
 		self.updateTime=updateTime
-
+'''
 class AssetManagementPreorder(db.Model):
 	id=db.Column(db.Integer, primary_key=True)
 	#user nick name

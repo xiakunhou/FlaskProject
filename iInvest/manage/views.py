@@ -90,7 +90,7 @@ class UserManageView(sqla.ModelView):
         return login.current_user.is_authenticated()
   
 
-class AssetManageView(sqla.ModelView):
+class AssetManage(sqla.ModelView):
 
     column_list = ('name','reason','threshold')
     column_sortable_list = ('name','reason')
@@ -101,7 +101,7 @@ class AssetManageView(sqla.ModelView):
 
 
     def create_form(self):
-        form = super(AssetManageView,self).create_form()
+        form = super(AssetManage,self).create_form()
         return form
 
     def is_accessible(self):
@@ -109,7 +109,7 @@ class AssetManageView(sqla.ModelView):
     column_display_pk = True
 
 
-class AMPreorderManageView(sqla.ModelView):
+class AMPreorderManage(sqla.ModelView):
 
     def is_accessible(self):
         return login.current_user.is_authenticated()
@@ -125,7 +125,7 @@ class AMPreorderManageView(sqla.ModelView):
         }
     }
 
-class TrustProductManageView(sqla.ModelView):
+class TrustProductManage(sqla.ModelView):
 
     column_list = ('name','reason','threshold')
     column_sortable_list = ('name','reason')
@@ -136,14 +136,14 @@ class TrustProductManageView(sqla.ModelView):
 
 
     def create_form(self):
-        form = super(TrustProductManageView,self).create_form()
+        form = super(TrustProductManage,self).create_form()
         return form
 
     def is_accessible(self):
         return login.current_user.is_authenticated()    
     column_display_pk = True
 
-class TrustPreorderManageView(sqla.ModelView):
+class TrustPreorderManage(sqla.ModelView):
 
     def is_accessible(self):
         return login.current_user.is_authenticated()
@@ -167,10 +167,10 @@ admin = admin.Admin(app, 'iInvest:', index_view=MyAdminIndexView(), base_templat
 
 # Add view
 admin.add_view(UserManageView(User, db.session))
-admin.add_view(AssetManageView(AssetManagement, db.session))
-admin.add_view(AMPreorderManageView(AssetManagementPreorder, db.session))
-admin.add_view(TrustProductManageView(TrustProduct, db.session))
-admin.add_view(TrustPreorderManageView(TrustProductPreorder, db.session))
+admin.add_view(AssetManage(AssetManagement, db.session))
+admin.add_view(AMPreorderManage(AssetManagementPreorder, db.session))
+admin.add_view(TrustProductManage(TrustProduct, db.session))
+admin.add_view(TrustPreorderManage(TrustProductPreorder, db.session))
 
 
 
