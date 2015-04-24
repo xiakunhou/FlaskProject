@@ -7,7 +7,7 @@ import flask_admin as admin
 from flask_admin.contrib import sqla
 from flask_admin import helpers, expose
 from werkzeug.security import generate_password_hash, check_password_hash
-from ..models import User,AssetManagement,AssetManagementPreorder
+from ..models import User,AssetManagement,AssetManagementPreorder, TrustProduct, TrustProductPreorder
 #from forms import AssetManagementForm
 
 from flask_admin.contrib import sqla
@@ -85,7 +85,7 @@ class MyAdminIndexView(admin.AdminIndexView):
 # Create customized model view class
 class UserManageView(sqla.ModelView):
     can_create = False
-    
+
     def is_accessible(self):
         return login.current_user.is_authenticated()
   
@@ -109,7 +109,7 @@ class AssetManageView(sqla.ModelView):
     column_display_pk = True
 
 
-class PreorderManageView(sqla.ModelView):
+class AMPreorderManageView(sqla.ModelView):
 
     def is_accessible(self):
         return login.current_user.is_authenticated()
@@ -125,7 +125,39 @@ class PreorderManageView(sqla.ModelView):
         }
     }
 
+class TrustProductManageView(sqla.ModelView):
 
+    column_list = ('name','reason','threshold')
+    column_sortable_list = ('name','reason')
+
+    form_args = dict(
+                    reason=dict(validators=[validators.required()])
+                )
+
+
+    def create_form(self):
+        form = super(TrustProductManageView,self).create_form()
+        return form
+
+    def is_accessible(self):
+        return login.current_user.is_authenticated()    
+    column_display_pk = True
+
+class TrustPreorderManageView(sqla.ModelView):
+
+    def is_accessible(self):
+        return login.current_user.is_authenticated()
+    column_display_pk = True
+    column_sortable_list=(('trust_product',TrustProduct.name),'phone',('user',User.name))
+    #need test
+    form_ajax_refs = {
+        'trust_product': {
+            'fields': (TrustProduct.name,)
+        },
+        'user': {
+            'fields': (User.name,)
+        }
+    }
 
 # Initialize flask-login
 init_login()
@@ -136,6 +168,9 @@ admin = admin.Admin(app, 'iInvest:', index_view=MyAdminIndexView(), base_templat
 # Add view
 admin.add_view(UserManageView(User, db.session))
 admin.add_view(AssetManageView(AssetManagement, db.session))
-admin.add_view(PreorderManageView(AssetManagementPreorder, db.session))
+admin.add_view(AMPreorderManageView(AssetManagementPreorder, db.session))
+admin.add_view(TrustProductManageView(TrustProduct, db.session))
+admin.add_view(TrustPreorderManageView(TrustProductPreorder, db.session))
+
 
 
