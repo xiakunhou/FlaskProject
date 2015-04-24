@@ -60,8 +60,10 @@ class TrustProduct(db.Model):
 			'riskControl': prod.riskControl
 		}
 	
-''' 
-	def __init__(self, name, reason, threshold, dueTime, shortDesc, profitRate, profitType, profitClose, profitDesc, status,organization,investType,investArea,total,detailDesc,riskControl):
+
+	def __init__(self, name=None, reason=None, threshold=None, dueTime=None, shortDesc=None, profitRate=None, profitType=None, \
+		profitClose=None, profitDesc=None, status=None,organization=None,investType=None,investArea=None,total=None,\
+		detailDesc=None,riskControl=None):
 		self.name=name
 		self.reason=reason
 		self.threshold=threshold
@@ -78,7 +80,7 @@ class TrustProduct(db.Model):
 		self.total=total
 		self.detailDesc=detailDesc
 		self.riskControl=riskControl
-'''
+
 	
 
 
@@ -115,9 +117,10 @@ class AssetManagement(db.Model):
 	detailDesc=db.Column(db.String(500))
 	#风险控制
 	riskControl=db.Column(db.String(500))
-''' 
-	def __init__(self, name, reason=None, threshold=None, dueTime=None, shortDesc=None, profitRate=None, profitType=None, \
-		profitClose=None, profitDesc=None, status=None,organization=None,investType=None,investArea=None,total=None,\
+	 
+	def __init__(self, name=None, reason=None, threshold=None, dueTime=None, shortDesc=None, profitRate=None, profitType=None, \
+		profitClose=None, profitDesc=None, status=None,organization=None,investType=None, investArea=None,total=None,\
+		detailDesc=None, riskControl=None):
 		self.name=name
 		self.reason=reason
 		self.threshold=threshold
@@ -134,8 +137,6 @@ class AssetManagement(db.Model):
 		self.total=total
 		self.detailDesc=detailDesc
 		self.riskControl=riskControl
-'''
-
 	
 
 
@@ -152,8 +153,8 @@ class TrustProductPreorder(db.Model):
 	status=db.Column(db.SmallInteger)#0, solved, 1 not solve, 2 solving, 3 high interest. 
 	createTime=db.Column(db.DateTime)
 	updateTime=db.Column(db.DateTime)
-'''
-	def __init__(self, name, phone, product_id, createTime=None,updateTime=None):
+
+	def __init__(self, name=None, phone=None, product_id=None, createTime=None,updateTime=None):
 		self.name=name
 		self.phone=phone
 		self.product_id=product_id
@@ -164,7 +165,8 @@ class TrustProductPreorder(db.Model):
 		if updateTime is None:
 			updateTime=datetime.utcnow()
 		self.updateTime=updateTime
-'''
+
+
 class AssetManagementPreorder(db.Model):
 	id=db.Column(db.Integer, primary_key=True)
 	#user nick name
@@ -202,8 +204,8 @@ class AssetManagementPreorder(db.Model):
 			'detailDesc': prod.detailDesc,
 			'riskControl': prod.riskControl
 		}
-'''
-	def __init__(self, name, phone, product_id, createTime=None,updateTime=None):
+
+	def __init__(self, name=None, phone=None, product_id=None, createTime=None,updateTime=None):
 		self.name=name
 		self.phone=phone
 		self.product_id=product_id
@@ -214,7 +216,7 @@ class AssetManagementPreorder(db.Model):
 		if updateTime is None:
 			updateTime=datetime.utcnow()
 		self.updateTime=updateTime
-'''
+
 
 class User(db.Model):
 	id=db.Column(db.Integer, primary_key=True)
@@ -241,8 +243,8 @@ class User(db.Model):
 
 	def __unicode__(self):
 		return self.name
-'''
-	def __init__(self, phone, passwd, email=None,name=None,idNumber=None, gender=1, birthday=None, level=0):
+
+	def __init__(self, phone=None, passwd=None, email=None,name=None,idNumber=None, gender=1, birthday=None, level=0):
 		self.phone=phone
 		self.passwd=passwd
 		self.email=email
@@ -252,10 +254,6 @@ class User(db.Model):
 		self.birthday=birthday
 		self.level=level
 		# Flask-Login integration
-'''
-	
-
-
 
 class Article(db.Model):
 	id=db.Column(db.Integer, primary_key=True)
