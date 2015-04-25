@@ -7,7 +7,7 @@ import flask_admin as admin
 from flask_admin.contrib import sqla
 from flask_admin import helpers, expose
 from werkzeug.security import generate_password_hash, check_password_hash
-from ..models import User,AssetManagement,AssetManagementPreorder, TrustProduct, TrustProductPreorder
+from iInvest.models import User,AssetManagement,AssetManagementPreorder, TrustProduct, TrustProductPreorder
 #from forms import AssetManagementForm
 
 from flask_admin.contrib import sqla
