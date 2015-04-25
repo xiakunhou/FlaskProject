@@ -1,7 +1,6 @@
-from iInvest import db
+from iInvest import db, bcrypt
 from iInvest.models import User
 from wtforms import form, fields, validators
-from werkzeug.security import generate_password_hash, check_password_hash
 
 # Define login and registration forms (for flask-login)
 class LoginForm(form.Form):
@@ -15,9 +14,7 @@ class LoginForm(form.Form):
             raise validators.ValidationError('Invalid user')
 
         # we're comparing the plaintext pw with the the hash from the db
-        if not check_password_hash(user.passwd, self.passwd.data):
-        # to compare plain text passwords use
-        # if user.password != self.password.data:
+        if not bcrypt.check_password_hash(user.passwd, self.passwd.data+'ta02%&9!(#HHK_dsKYas;'):
             raise validators.ValidationError('Invalid password')
 
     def get_user(self):

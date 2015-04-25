@@ -1,4 +1,4 @@
-from iInvest import db,app
+from iInvest import db,app, bcrypt
 from flask import Flask, url_for, redirect, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from wtforms import form, fields, validators
@@ -6,7 +6,6 @@ import flask_login as login
 import flask_admin as admin
 from flask_admin.contrib import sqla
 from flask_admin import helpers, expose
-from werkzeug.security import generate_password_hash, check_password_hash
 from iInvest.models import User,AssetManagement,AssetManagementPreorder, TrustProduct, TrustProductPreorder
 #from forms import AssetManagementForm
 
@@ -63,7 +62,8 @@ class MyAdminIndexView(admin.AdminIndexView):
 			#form.populate_obj(user)
 			# we hash the users password to avoid saving it as plaintext in the db,
 			# remove to use plain text:
-			passwd = generate_password_hash(form.passwd.data)
+			passwd=bcrypt.generate_password_hash(form.passwd.data+'ta02%&9!(#HHK_dsKYas;')
+			#passwd = generate_password_hash(form.passwd.data)
 			user = User(phone=form.phone.data,passwd=passwd,name=form.name.data)
 			
 
