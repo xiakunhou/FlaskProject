@@ -14,7 +14,8 @@ class LoginForm(form.Form):
             raise validators.ValidationError('Invalid user')
 
         # we're comparing the plaintext pw with the the hash from the db
-        if not bcrypt.check_password_hash(user.passwd, self.passwd.data+'ta02%&9!(#HHK_dsKYas;'):
+        print self.passwd.data+'ab!@#$%\)\(sdkasd\>\>asd,\;'
+        if not bcrypt.check_password_hash(user.passwd, self.passwd.data+'ab!@#$%\)\(sdkasd\>\>asd,\;'):
             raise validators.ValidationError('Invalid password')
 
     def get_user(self):

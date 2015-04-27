@@ -154,11 +154,12 @@ class TrustProductPreorder(db.Model):
 	createTime=db.Column(db.DateTime)
 	updateTime=db.Column(db.DateTime)
 
-	def __init__(self, name=None, phone=None, product_id=None, createTime=None,updateTime=None):
+	def __init__(self, name=None, phone=None, product_id=None, user_id=00000000, status=1, createTime=None,updateTime=None):
 		self.name=name
 		self.phone=phone
 		self.product_id=product_id
-		self.status=1
+		self.user_id=user_id
+		self.status=status
 		if createTime is None:
 			createTime=datetime.utcnow()
 		self.createTime=createTime
