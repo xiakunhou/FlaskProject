@@ -10,6 +10,7 @@ from flask.ext.babel import Babel
 #import flask_admin as admin
 
 app=Flask(__name__,template_folder='templates')
+app.config.from_pyfile('setting.cfg')
 babel= Babel(app)
 
 app.config.from_object('config')
