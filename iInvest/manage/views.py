@@ -1,5 +1,5 @@
 from iInvest import db, app, bcrypt, babel
-from flask import Flask, url_for, redirect, render_template, request
+from flask import Flask, url_for, redirect, render_template, request, session
 from flask_sqlalchemy import SQLAlchemy
 from wtforms import form, fields, validators
 import flask_login as login
@@ -7,7 +7,7 @@ import flask_admin as admin
 from flask_admin.contrib import sqla
 from flask_admin import helpers, expose
 from iInvest.models import User,AssetManagement,AssetManagementPreorder, TrustProduct, TrustProductPreorder
-from flask.ext.babel import gettext, ngettext
+from flask.ext.babel import gettext, ngettext, lazy_gettext
 #from forms import AssetManagementForm
 
 from flask_admin.contrib import sqla
@@ -17,11 +17,12 @@ from forms import LoginForm, RegistrationForm
 @babel.localeselector
 def get_locale():
     override = request.args.get('lang')
+    print override
     if override:
         session['lang'] = override
 
-    return session.get('lang', 'en')
-
+    #return session.get('lang', 'zh_Hans_CN')
+    return 'zh_Hans_CN'
 
 # Initialize flask-login
 def init_login():
@@ -180,11 +181,8 @@ init_login()
 admin = admin.Admin(app, 'iInvest:', index_view=MyAdminIndexView(), base_template='my_master.html')
 
 # Add view
-admin.add_view(UserManageView(User, db.session, gettext('User Management')))
-admin.add_view(AssetManage(AssetManagement, db.session, gettext('AsserProduct Management')))
-admin.add_view(AMPreorderManage(AssetManagementPreorder, db.session, gettext('AsserProduct Preorders')))
-admin.add_view(TrustProductManage(TrustProduct, db.session, gettext('TrustProduct Management')))
-admin.add_view(TrustPreorderManage(TrustProductPreorder, db.session, gettext('TrustProduct Preorders')))
-
-
-
+admin.add_view(UserManageView(User, db.session, lazy_gettext('User Management')))
+admin.add_view(AssetManage(AssetManagement, db.session, lazy_gettext('AsserProduct Management')))
+admin.add_view(AMPreorderManage(AssetManagementPreorder, db.session, lazy_gettext('AsserProduct Preorders')))
+admin.add_view(TrustProductManage(TrustProduct, db.session, lazy_gettext('TrustProduct Management')))
+admin.add_view(TrustPreorderManage(TrustProductPreorder, db.session, lazy_gettext('TrustProduct Preorders')))
