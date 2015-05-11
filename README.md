@@ -1,5 +1,17 @@
 # FlaskProject
     pip install -r requirements.txt
+    
+    
+run from console
+-------
+    //create db..
+    python db_create.py
+    //translation..
+    python tr_compile.py
+    //start web
+    //foreman start web
+    python run.py
+    
 run from heroku
 ------
 create Heroku db
@@ -13,12 +25,6 @@ Then create the db.
     $ heroku run migrate
     $ heroku run upgrade
     
-run from console
--------
-
-    //foreman start web
-    python run.py
-    python db_create.py
 
 -----
 read below documents.
