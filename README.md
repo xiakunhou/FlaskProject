@@ -18,6 +18,7 @@ run from console
 
     //foreman start web
     python run.py
+    python db_create.py
 
 -----
 read below documents.
