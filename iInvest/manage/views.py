@@ -9,19 +9,34 @@ from flask_admin.contrib import sqla
 from flask_admin import helpers, expose
 from iInvest.models import User,AssetManagement,AssetManagementPreorder, TrustProduct, TrustProductPreorder
 from flask.ext.babel import gettext, ngettext, lazy_gettext
+<<<<<<< HEAD
 #from flask_babelex import Babel
 #from flask.ext.babel import Babel
+=======
+>>>>>>> 62cf15a7590404335e2a29bf4db2fb33744f5d8a
 #from forms import AssetManagementForm
 
 from flask_admin.contrib import sqla
 from flask_admin.contrib.sqla import filters
 from forms import LoginForm, RegistrationForm
 
+<<<<<<< HEAD
 LANGUAGES = {
     'en': 'English',
     'es': 'Español'
 }
 
+=======
+@babel.localeselector
+def get_locale():
+    override = request.args.get('lang')
+    print override
+    if override:
+        session['lang'] = override
+
+    #return session.get('lang', 'zh_Hans_CN')
+    return 'zh_Hans_CN'
+>>>>>>> 62cf15a7590404335e2a29bf4db2fb33744f5d8a
 
 # Initialize flask-login
 def init_login():
@@ -179,6 +194,7 @@ init_login()
 admin = admin.Admin(app, 'iInvest:', index_view=MyAdminIndexView(), base_template='my_master.html')
 
 # Add view
+<<<<<<< HEAD
 admin.add_view(UserManageView(User, db.session, gettext(u'User Management')))
 admin.add_view(AssetManage(AssetManagement, db.session, gettext(u'AsserProduct Management')))
 admin.add_view(AMPreorderManage(AssetManagementPreorder, db.session, gettext(u'AsserProduct Preorders')))
@@ -187,3 +203,10 @@ admin.add_view(TrustPreorderManage(TrustProductPreorder, db.session, gettext(u'T
 
 
 
+=======
+admin.add_view(UserManageView(User, db.session, lazy_gettext('User Management')))
+admin.add_view(AssetManage(AssetManagement, db.session, lazy_gettext('AsserProduct Management')))
+admin.add_view(AMPreorderManage(AssetManagementPreorder, db.session, lazy_gettext('AsserProduct Preorders')))
+admin.add_view(TrustProductManage(TrustProduct, db.session, lazy_gettext('TrustProduct Management')))
+admin.add_view(TrustPreorderManage(TrustProductPreorder, db.session, lazy_gettext('TrustProduct Preorders')))
+>>>>>>> 62cf15a7590404335e2a29bf4db2fb33744f5d8a
