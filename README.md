@@ -1,5 +1,5 @@
 # FlaskProject
-pip install -r requirements.txt
+    pip install -r requirements.txt
 run from heroku
 ------
 create Heroku db
@@ -16,8 +16,8 @@ Then create the db.
 run from console
 -------
 
-    foreman start web
-
+    //foreman start web
+    python run.py
 
 -----
 read below documents.
