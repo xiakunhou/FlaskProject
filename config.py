@@ -14,3 +14,6 @@ else:
     SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
 
 SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
+
+BABEL_DEFAULT_LOCALE = 'zh_CN'
+BABEL_DEFAULT_TIMEZONE = 'UTC+8:00'

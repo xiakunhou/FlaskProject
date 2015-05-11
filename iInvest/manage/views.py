@@ -1,5 +1,6 @@
+# -*- coding: utf-8 -*-
 from iInvest import db, app, bcrypt, babel
-from flask import Flask, url_for, redirect, render_template, request
+from flask import Flask, url_for, redirect, render_template, request, session
 from flask_sqlalchemy import SQLAlchemy
 from wtforms import form, fields, validators
 import flask_login as login
@@ -7,20 +8,19 @@ import flask_admin as admin
 from flask_admin.contrib import sqla
 from flask_admin import helpers, expose
 from iInvest.models import User,AssetManagement,AssetManagementPreorder, TrustProduct, TrustProductPreorder
-from flask.ext.babel import gettext, ngettext
+from flask.ext.babel import gettext, ngettext, lazy_gettext
+#from flask_babelex import Babel
+#from flask.ext.babel import Babel
 #from forms import AssetManagementForm
 
 from flask_admin.contrib import sqla
 from flask_admin.contrib.sqla import filters
 from forms import LoginForm, RegistrationForm
 
-@babel.localeselector
-def get_locale():
-    override = request.args.get('lang')
-    if override:
-        session['lang'] = override
-
-    return session.get('lang', 'en')
+LANGUAGES = {
+    'en': 'English',
+    'es': 'Español'
+}
 
 
 # Initialize flask-login
@@ -58,7 +58,7 @@ class MyAdminIndexView(admin.AdminIndexView):
 
         if login.current_user.is_authenticated():
             return redirect(url_for('.index'))
-        link = '<p>Don\'t have an account? <a href="' + url_for('.register_view') + '">Click here to register.</a></p>'
+        link = lazy_gettext('<p>Don\'t have an account? <a href="') + url_for('.register_view') + '">Click here to register.</a></p>'
         self._template_args['form'] = form
         self._template_args['link'] = link
         return super(MyAdminIndexView, self).index()
@@ -175,16 +175,15 @@ class TrustPreorderManage(sqla.ModelView):
 
 # Initialize flask-login
 init_login()
-
 # Create admin
 admin = admin.Admin(app, 'iInvest:', index_view=MyAdminIndexView(), base_template='my_master.html')
 
 # Add view
-admin.add_view(UserManageView(User, db.session, gettext('User Management')))
-admin.add_view(AssetManage(AssetManagement, db.session, gettext('AsserProduct Management')))
-admin.add_view(AMPreorderManage(AssetManagementPreorder, db.session, gettext('AsserProduct Preorders')))
-admin.add_view(TrustProductManage(TrustProduct, db.session, gettext('TrustProduct Management')))
-admin.add_view(TrustPreorderManage(TrustProductPreorder, db.session, gettext('TrustProduct Preorders')))
+admin.add_view(UserManageView(User, db.session, gettext(u'User Management')))
+admin.add_view(AssetManage(AssetManagement, db.session, gettext(u'AsserProduct Management')))
+admin.add_view(AMPreorderManage(AssetManagementPreorder, db.session, gettext(u'AsserProduct Preorders')))
+admin.add_view(TrustProductManage(TrustProduct, db.session, gettext(u'TrustProduct Management')))
+admin.add_view(TrustPreorderManage(TrustProductPreorder, db.session, gettext(u'TrustProduct Preorders')))
 
 
 
