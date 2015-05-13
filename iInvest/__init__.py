@@ -19,7 +19,7 @@ babel=Babel(app)
 @babel.localeselector
 def get_locale():
     #print request.accept_languages.best_match(LANGUAGES.keys())
-    return 'zh_Hans_CN'
+    return 'zh_CN'
 
 
 from iInvest import trustProductView, articleView, assetManagementView, views

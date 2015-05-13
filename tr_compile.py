@@ -5,4 +5,4 @@ if sys.platform == 'wn32':
     pybabel = 'flask\\Scripts\\pybabel'
 else:
     pybabel = 'pybabel'
-os.system(pybabel + ' compile -f -d translations')
+os.system(pybabel + ' compile -f -d iInvest/translations')
