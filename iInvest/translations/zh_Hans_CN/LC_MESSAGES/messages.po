@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-05-13 23:27+0800\n"
+"POT-Creation-Date: 2015-05-14 00:07+0800\n"
 "PO-Revision-Date: 2015-05-13 23:27+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: zh_Hans_CN <LL@li.org>\n"
@@ -20,25 +20,29 @@ msgstr ""
 
 #: iInvest/manage/views.py:59
 msgid "<p>Don't have an account? <a href=\""
-msgstr "aa"
+msgstr "<p>没有帐号? <a href=\""
+
+#: iInvest/manage/views.py:59
+msgid "\">Click here to register.</a></p>"
+msgstr "\">点击注册。</a></p>"
 
 #: iInvest/manage/views.py:186
 msgid "User Management"
-msgstr "cc"
+msgstr "用户管理"
 
 #: iInvest/manage/views.py:187
 msgid "AsserProduct Management"
-msgstr "dd"
+msgstr "资产产品管理"
 
 #: iInvest/manage/views.py:188
 msgid "AsserProduct Preorders"
-msgstr "ee"
+msgstr "资产订单管理"
 
 #: iInvest/manage/views.py:189
 msgid "TrustProduct Management"
-msgstr "zz"
+msgstr "信托产品管理"
 
 #: iInvest/manage/views.py:190
 msgid "TrustProduct Preorders"
-msgstr ""
+msgstr "信托订单管理"
 

@@ -6,5 +6,5 @@ if sys.platform == 'wn32':
 else:
     pybabel = 'pybabel'
 os.system(pybabel + ' extract -F babel.cfg -k lazy_gettext -o messages.pot iInvest/')
-os.system(pybabel + ' update -i messages.pot -d translations')
+os.system(pybabel + ' update -i messages.pot -d iInvest/translations')
 os.unlink('messages.pot')
